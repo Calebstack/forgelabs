@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoFix Pro | Expert Car Repair & Maintenance</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Oswald', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#e63946',
+                            dark: '#111827',
+                            gray: '#374151',
+                            light: '#f3f4f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        
+        /* Smooth Scroll Reveal Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-100 { transition-delay: 100ms; }
+        .delay-200 { transition-delay: 200ms; }
+        .delay-300 { transition-delay: 300ms; }
+        .delay-400 { transition-delay: 400ms; }
+        .delay-500 { transition-delay: 500ms; }
+    </style>
+</head>
+<body class="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
+
+    <!-- Top Bar -->
+    <div class="bg-brand-dark text-gray-300 text-sm py-2 hidden md:block">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <div class="flex items-center space-x-6 reveal">
+                <span class="flex items-center"><i class="ph ph-map-pin mr-2 text-brand-red"></i> 123 Mechanic Lane, Motor City, MC 45678</span>
+                <span class="flex items-center"><i class="ph ph-clock mr-2 text-brand-red"></i> Mon - Sat: 8:00 AM - 6:00 PM</span>
+            </div>
+            <div class="flex items-center space-x-4 reveal delay-200">
+                <a href="#" class="hover:text-white transition"><i class="ph ph-facebook-logo text-lg"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="ph ph-instagram-logo text-lg"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="ph ph-twitter-logo text-lg"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center reveal">
+                    <div class="bg-brand-red text-white p-2 rounded-lg mr-3">
+                        <i class="ph ph-wrench text-3xl transform -scale-x-100"></i>
+                    </div>
+                    <div>
+                        <h1 class="font-heading font-bold text-2xl text-brand-dark leading-none tracking-wide uppercase">AutoFix <span class="text-brand-red">Pro</span></h1>
+                        <p class="text-xs text-gray-500 font-semibold tracking-widest uppercase">Expert Auto Repair</p>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden lg:flex items-center space-x-8 reveal delay-100">
+                    <a href="#" class="text-brand-dark hover:text-brand-red font-semibold uppercase tracking-wide text-sm transition">Home</a>
+                    <a href="#about" class="text-brand-dark hover:text-brand-red font-semibold uppercase tracking-wide text-sm transition">About</a>
+                    <a href="#services" class="text-brand-dark hover:text-brand-red font-semibold uppercase tracking-wide text-sm transition">Services</a>
+                    <a href="#testimonials" class="text-brand-dark hover:text-brand-red font-semibold uppercase tracking-wide text-sm transition">Reviews</a>
+                    <a href="#contact" class="text-brand-dark hover:text-brand-red font-semibold uppercase tracking-wide text-sm transition">Contact</a>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="hidden md:flex items-center reveal delay-200">
+                    <div class="mr-6 text-right">
+                        <p class="text-xs text-gray-500 uppercase tracking-wide">Call for emergencies</p>
+                        <p class="font-heading font-bold text-xl text-brand-dark">1-800-AUTO-FIX</p>
+                    </div>
+                    <a href="#appointment" class="bg-brand-red text-white px-6 py-3 rounded uppercase font-bold tracking-wide hover:bg-red-700 transition shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 duration-200">
+                        Book Appointment
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="lg:hidden flex items-center reveal">
+                    <button class="text-brand-dark hover:text-brand-red focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-brand-dark">
+        <div class="absolute inset-0">
+            <img class="w-full h-full object-cover opacity-30" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80" alt="Mechanic working on car engine">
+            <div class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/80 to-transparent"></div>
+        </div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32 flex items-center min-h-[600px]">
+            <div class="max-w-2xl reveal">
+                <div class="inline-flex items-center space-x-2 bg-brand-red/20 border border-brand-red/50 rounded-full px-4 py-1.5 mb-6 reveal delay-100">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-red"></span>
+                    </span>
+                    <span class="text-sm font-semibold text-white tracking-wide uppercase">24/7 Emergency Towing</span>
+                </div>
+                <h2 class="font-heading text-5xl sm:text-6xl lg:text-7xl font-bold text-white uppercase leading-tight mb-6 reveal delay-200">
+                    We Get You Back <br><span class="text-brand-red">On The Road</span> Fast.
+                </h2>
+                <p class="text-lg sm:text-xl text-gray-300 mb-8 max-w-lg border-l-4 border-brand-red pl-4 reveal delay-300">
+                    ASE Certified Mechanics. Honest pricing. Same-day service on most repairs. Trust the professionals at AutoFix Pro for all your automotive needs.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 reveal delay-400">
+                    <a href="#appointment" class="bg-brand-red text-white text-center px-8 py-4 rounded uppercase font-bold tracking-wider hover:bg-red-700 transition shadow-lg hover:shadow-red-500/30">
+                        Schedule Service
+                    </a>
+                    <a href="#services" class="bg-white/10 backdrop-blur-sm text-white text-center border border-white/20 px-8 py-4 rounded uppercase font-bold tracking-wider hover:bg-white/20 transition">
+                        Our Services
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust Badges (Why Choose Us) -->
+    <div class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 py-8">
+                <div class="flex items-center justify-center space-x-3 text-center md:text-left flex-col md:flex-row reveal">
+                    <i class="ph ph-medal text-4xl text-brand-red mb-2 md:mb-0"></i>
+                    <div>
+                        <h4 class="font-heading font-bold text-brand-dark uppercase">ASE Certified</h4>
+                        <p class="text-xs text-gray-500">Expert mechanics</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 text-center md:text-left flex-col md:flex-row reveal delay-100">
+                    <i class="ph ph-shield-check text-4xl text-brand-red mb-2 md:mb-0"></i>
+                    <div>
+                        <h4 class="font-heading font-bold text-brand-dark uppercase">24 Mo Warranty</h4>
+                        <p class="text-xs text-gray-500">Parts & labor guarantee</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 text-center md:text-left flex-col md:flex-row reveal delay-200">
+                    <i class="ph ph-currency-circle-dollar text-4xl text-brand-red mb-2 md:mb-0"></i>
+                    <div>
+                        <h4 class="font-heading font-bold text-brand-dark uppercase">Fair Pricing</h4>
+                        <p class="text-xs text-gray-500">No hidden fees</p>
+                    </div>
+                </div>
+                <div class="flex items-center justify-center space-x-3 text-center md:text-left flex-col md:flex-row reveal delay-300">
+                    <i class="ph ph-clock-countdown text-4xl text-brand-red mb-2 md:mb-0"></i>
+                    <div>
+                        <h4 class="font-heading font-bold text-brand-dark uppercase">Fast Turnaround</h4>
+                        <p class="text-xs text-gray-500">Same-day service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-brand-light">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="relative reveal">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-brand-red opacity-20 rounded-tl-3xl"></div>
+                    <div class="absolute -bottom-4 -right-4 w-24 h-24 bg-brand-dark opacity-10 rounded-br-3xl"></div>
+                    <!-- Fixed image URL to ensure it loads reliably -->
+                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?q=80&w=800&auto=format&fit=crop" alt="Auto repair shop" class="relative rounded shadow-2xl w-full h-[500px] object-cover border-4 border-white z-10">
+                    <div class="absolute bottom-8 -left-8 bg-brand-red text-white p-6 rounded shadow-xl z-20 hidden md:block border border-white/20">
+                        <p class="font-heading text-5xl font-bold leading-none mb-1">15+</p>
+                        <p class="uppercase font-bold tracking-wide text-sm opacity-90">Years of<br>Experience</p>
+                    </div>
+                </div>
+                <div class="reveal delay-200">
+                    <h3 class="text-brand-red font-bold uppercase tracking-wider text-sm mb-2">About Our Shop</h3>
+                    <h2 class="font-heading text-4xl sm:text-5xl font-bold text-brand-dark uppercase mb-6 leading-tight">Your Trusted Dealership <br>Alternative.</h2>
+                    <p class="text-gray-600 mb-6 text-lg leading-relaxed">
+                        At AutoFix Pro, we believe in honest work, transparent pricing, and treating every vehicle as if it were our own. Founded in 2011, our facility is equipped with state-of-the-art diagnostic tools and manned by certified master technicians.
+                    </p>
+                    <p class="text-gray-600 mb-8 leading-relaxed">
+                        Whether you need routine maintenance or a complex engine rebuild, we deliver dealership-quality service without the dealership price tag. We take pride in educating our customers so you can make informed decisions about your vehicle's health.
+                    </p>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-start">
+                            <i class="ph ph-check-circle text-brand-red text-xl mt-0.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Free comprehensive digital vehicle inspections with photos.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ph ph-check-circle text-brand-red text-xl mt-0.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Comfortable waiting area with free Wi-Fi and premium coffee.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="ph ph-check-circle text-brand-red text-xl mt-0.5 mr-3"></i>
+                            <span class="text-gray-700 font-medium">Complimentary shuttle service and loaner vehicles available.</span>
+                        </li>
+                    </ul>
+
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h3 class="text-brand-red font-bold uppercase tracking-wider text-sm mb-2">What We Do</h3>
+                <h2 class="font-heading text-4xl sm:text-5xl font-bold text-brand-dark uppercase mb-6">Comprehensive Auto Services</h2>
+                <div class="h-1 w-20 bg-brand-red mx-auto"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Service 1 -->
+                <div class="reveal bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-engine text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">Engine Diagnostics</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Check engine light on? Our advanced computer diagnostics pinpoint issues quickly and accurately to save you time and money.</p>
+                    
+                </div>
+
+                <!-- Service 2 -->
+                <div class="reveal delay-100 bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-car text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">Brake Repair</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Don't compromise on safety. We provide pad replacement, rotor resurfacing, fluid flushes, and complete brake system overhauls.</p>
+                    
+                </div>
+
+                <!-- Service 3 -->
+                <div class="reveal delay-200 bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-drop text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">Oil & Filters</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Prolong the life of your engine with regular full-synthetic or conventional oil changes, and comprehensive filter replacements.</p>
+                    
+                </div>
+
+                <!-- Service 4 -->
+                <div class="reveal delay-100 bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-thermometer text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">A/C & Heating</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">Stay comfortable year-round. We inspect, recharge, and repair automotive climate control systems with eco-friendly refrigerants.</p>
+                    
+                </div>
+
+                <!-- Service 5 -->
+                <div class="reveal delay-200 bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-gear text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">Transmission</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">From routine fluid flushes to complete transmission rebuilds and replacements. We handle both automatic and manual vehicles.</p>
+                    
+                </div>
+
+                <!-- Service 6 -->
+                <div class="reveal delay-300 bg-brand-light p-8 rounded border border-gray-100 hover:shadow-xl transition-all duration-300 group relative overflow-hidden z-10">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-red/5 rounded-bl-full -z-10 group-hover:scale-150 transition-transform duration-500"></div>
+                    <i class="ph ph-circle text-5xl text-brand-red mb-6 block group-hover:-translate-y-2 transition-transform duration-300"></i>
+                    <h3 class="font-heading text-2xl font-bold text-brand-dark uppercase mb-3">Tires & Alignment</h3>
+                    <p class="text-gray-600 mb-4 line-clamp-3">We stock top tire brands and offer precise computerized laser wheel alignments to prevent uneven wear and improve handling.</p>
+                    
+                </div>
+            </div>
+
+            
+        </div>
+    </section>
+
+    <!-- Appointment & CTA -->
+    <section id="appointment" class="relative py-20 bg-brand-red">
+        <!-- Background Pattern -->
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#fff 2px, transparent 2px); background-size: 30px 30px;"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="reveal bg-white rounded-lg shadow-2xl p-8 md:p-12 max-w-4xl mx-auto transform -translate-y-8 lg:-translate-y-16">
+                <div class="text-center mb-8">
+                    <h2 class="font-heading text-3xl md:text-4xl font-bold text-brand-dark uppercase mb-2">Book an Appointment</h2>
+                    <p class="text-gray-600">Fill out the form below and we'll confirm your service slot within 30 minutes.</p>
+                </div>
+                
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                            <input type="text" class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                            <input type="tel" class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="(555) 123-4567">
+                        </div>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Vehicle Make/Model</label>
+                            <input type="text" class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="e.g. 2019 Toyota Camry">
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+                            <input type="date" class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition">
+                        </div>
+                        <div class="md:col-span-1">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Service Needed</label>
+                            <select class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition bg-white">
+                                <option>General Inspection</option>
+                                <option>Oil Change</option>
+                                <option>Brake Repair</option>
+                                <option>Engine Issue</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Additional Details (Optional)</label>
+                        <textarea rows="3" class="w-full border border-gray-300 rounded p-3 focus:ring-brand-red focus:border-brand-red outline-none transition" placeholder="Describe the issue..."></textarea>
+                    </div>
+                    
+                    <button type="button" class="w-full bg-brand-red text-white py-4 rounded font-bold uppercase tracking-wider hover:bg-red-700 transition shadow-lg text-lg">
+                        Request Appointment
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-20 bg-brand-dark text-white text-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="reveal text-brand-red font-bold uppercase tracking-wider text-sm mb-2">Customer Reviews</h3>
+            <h2 class="reveal delay-100 font-heading text-4xl sm:text-5xl font-bold uppercase mb-12">What Our Clients Say</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="reveal delay-100 bg-gray-800 p-8 rounded-lg border border-gray-700 text-left relative">
+                    <i class="ph-fill ph-quotes text-5xl text-gray-700 absolute top-4 right-4"></i>
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"AutoFix Pro saved me hundreds compared to the dealer. They diagnosed my transmission issue quickly, showed me exactly what was wrong, and had me back on the road the next day. Honest guys."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center font-bold text-xl mr-4">MB</div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-wide">Michael B.</h4>
+                            <p class="text-sm text-gray-500">Google Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="reveal delay-200 bg-gray-800 p-8 rounded-lg border border-gray-700 text-left relative">
+                    <i class="ph-fill ph-quotes text-5xl text-gray-700 absolute top-4 right-4"></i>
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"As someone who knows nothing about cars, I usually feel intimidated at mechanic shops. Not here. They explained everything clearly without pressuring me. Highly recommend for any female drivers."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center font-bold text-xl mr-4">SL</div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-wide">Sarah L.</h4>
+                            <p class="text-sm text-gray-500">Yelp Review</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="reveal delay-300 bg-gray-800 p-8 rounded-lg border border-gray-700 text-left relative">
+                    <i class="ph-fill ph-quotes text-5xl text-gray-700 absolute top-4 right-4"></i>
+                    <div class="flex text-yellow-400 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-gray-300 italic mb-6">"I've been taking my fleet of delivery vans here for 3 years. The maintenance program they put me on has significantly reduced our downtime. Fast, professional, and they stand behind their work."</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-gray-600 rounded-full flex items-center justify-center font-bold text-xl mr-4">DJ</div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-wide">David J.</h4>
+                            <p class="text-sm text-gray-500">Fleet Owner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark pt-16 pb-8 border-t-4 border-brand-red text-gray-400 reveal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+                
+                <!-- Brand Info -->
+                <div>
+                    <div class="flex items-center mb-6">
+                        <div class="bg-brand-red text-white p-1.5 rounded mr-2">
+                            <i class="ph ph-wrench text-2xl transform -scale-x-100"></i>
+                        </div>
+                        <h2 class="font-heading font-bold text-2xl text-white uppercase tracking-wide">AutoFix <span class="text-brand-red">Pro</span></h2>
+                    </div>
+                    <p class="text-sm mb-6 leading-relaxed">
+                        Your trusted, locally-owned automotive repair center providing premium dealership-alternative service since 2011.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center hover:bg-brand-red hover:text-white transition"><i class="ph ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center hover:bg-brand-red hover:text-white transition"><i class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded bg-gray-800 flex items-center justify-center hover:bg-brand-red hover:text-white transition"><i class="ph ph-youtube-logo text-xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-heading font-bold text-xl uppercase mb-6">Quick Links</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-caret-right mr-2 text-brand-red"></i> Home</a></li>
+                        <li><a href="#about" class="hover:text-brand-red transition flex items-center"><i class="ph ph-caret-right mr-2 text-brand-red"></i> About Us</a></li>
+                        <li><a href="#services" class="hover:text-brand-red transition flex items-center"><i class="ph ph-caret-right mr-2 text-brand-red"></i> Services</a></li>
+                        <li><a href="#testimonials" class="hover:text-brand-red transition flex items-center"><i class="ph ph-caret-right mr-2 text-brand-red"></i> Reviews</a></li>
+                        <li><a href="#appointment" class="hover:text-brand-red transition flex items-center"><i class="ph ph-caret-right mr-2 text-brand-red"></i> Make Appointment</a></li>
+                    </ul>
+                </div>
+
+                <!-- Services -->
+                <div>
+                    <h4 class="text-white font-heading font-bold text-xl uppercase mb-6">Our Services</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-wrench mr-2 text-brand-red"></i> Engine Diagnostics</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-wrench mr-2 text-brand-red"></i> Brake Repair</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-wrench mr-2 text-brand-red"></i> Oil Changes</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-wrench mr-2 text-brand-red"></i> Transmission</a></li>
+                        <li><a href="#" class="hover:text-brand-red transition flex items-center"><i class="ph ph-wrench mr-2 text-brand-red"></i> Tires & Alignment</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div>
+                    <h4 class="text-white font-heading font-bold text-xl uppercase mb-6">Contact Us</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <i class="ph ph-map-pin text-brand-red text-xl mr-3 mt-1"></i>
+                            <span>123 Mechanic Lane<br>Motor City, MC 45678</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph ph-phone-call text-brand-red text-xl mr-3"></i>
+                            <span class="font-bold text-white">1-800-AUTO-FIX</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph ph-envelope-simple text-brand-red text-xl mr-3"></i>
+                            <span>service@autofixpro.com</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph ph-clock text-brand-red text-xl mr-3"></i>
+                            <span>Mon-Sat: 8AM - 6PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm">
+                <p>&copy; 2026 AutoFix Pro. All rights reserved.</p>
+                <div class="mt-4 md:mt-0 space-x-4">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll Reveal Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target); // Stop observing once it has revealed
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => {
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

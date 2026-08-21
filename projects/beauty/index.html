@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glow Salon | Premium Hair, Skin & Nails</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        rose: {
+                            50: '#fff1f2',
+                            100: '#ffe4e6',
+                            200: '#fecdd3',
+                            300: '#fda4af',
+                            400: '#fb7185',
+                            500: '#f43f5e',
+                            600: '#e11d48',
+                            700: '#be123c',
+                            800: '#9f1239',
+                            900: '#881337',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero-bg {
+            background-image: linear-gradient(rgba(28, 25, 23, 0.4), rgba(28, 25, 23, 0.7)), url('https://images.unsplash.com/photo-1600948836101-f9ffda59d250?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .gallery-img {
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.08);
+        }
+        .tab-btn.active {
+            background-color: #f43f5e;
+            color: white;
+            border-color: #f43f5e;
+        }
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
+    
+    <!-- Navbar -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20">
+                <div class="flex items-center">
+                    <i class="ph ph-sparkle text-3xl text-rose-500 mr-2"></i>
+                    <span class="font-serif font-bold text-2xl text-stone-900 tracking-tight">Glow Salon</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-stone-600 hover:text-rose-600 font-medium transition">Home</a>
+                    <a href="#about" class="text-stone-600 hover:text-rose-600 font-medium transition">About</a>
+                    <a href="#services" class="text-stone-600 hover:text-rose-600 font-medium transition">Services</a>
+                    <a href="#gallery" class="text-stone-600 hover:text-rose-600 font-medium transition">Gallery</a>
+                </div>
+                <div class="flex items-center md:hidden">
+                    <i class="ph ph-list text-3xl text-stone-800"></i>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div id="home" class="relative hero-bg h-[90vh] flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div class="max-w-2xl text-center md:text-left" data-aos="fade-up" data-aos-duration="1000">
+                <span class="text-rose-300 font-medium tracking-widest uppercase mb-4 block">Welcome to Glow</span>
+                <h1 class="text-5xl md:text-7xl font-serif font-bold text-white leading-tight mb-6">
+                    Redefining <span class="italic text-rose-400">Elegance</span> & Beauty.
+                </h1>
+                <p class="text-lg md:text-xl text-stone-200 mb-10 font-light">
+                    Step into an oasis of luxury. We offer premium hair styling, rejuvenating skincare, and meticulous nail artistry.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#services" class="px-8 py-4 bg-rose-600 text-white font-medium hover:bg-rose-700 transition duration-300 text-center uppercase tracking-wide text-sm flex items-center justify-center gap-2">
+                        View Our Services <i class="ph ph-arrow-down text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-16">
+                <div class="lg:w-1/2 relative" data-aos="fade-right" data-aos-duration="1000">
+                    <img src="https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800" alt="Salon Interior" class="w-full h-[600px] object-cover shadow-2xl rounded-sm">
+                    <div class="absolute -bottom-8 -right-8 bg-rose-50 p-8 hidden md:block border border-rose-100 shadow-xl">
+                        <p class="font-serif text-5xl text-rose-600 font-bold">15+</p>
+                        <p class="text-stone-600 font-medium uppercase tracking-wider text-sm mt-2">Years of<br>Excellence</p>
+                    </div>
+                </div>
+                <div class="lg:w-1/2" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="flex items-center gap-4 mb-4">
+                        <div class="h-[1px] w-12 bg-rose-500"></div>
+                        <h2 class="text-rose-500 font-medium tracking-widest uppercase">The Glow Experience</h2>
+                    </div>
+                    <h3 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6 leading-tight">Your sanctuary for ultimate relaxation.</h3>
+                    <p class="text-stone-600 mb-6 text-lg font-light leading-relaxed">
+                        At Glow Salon, we move beyond basic beauty treatments. We provide a transformative experience tailored to your unique features and desires. From the moment you walk through our doors, you are enveloped in a calming atmosphere designed to melt away stress.
+                    </p>
+                    <p class="text-stone-600 mb-8 text-lg font-light leading-relaxed">
+                        Our master stylists and licensed aestheticians undergo continuous training to master the latest techniques. We exclusively use luxury, cruelty-free products that nourish your body while delivering stunning, long-lasting results.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8 border-t border-stone-100 pt-8 mt-8">
+                        <div>
+                            <i class="ph ph-medal text-4xl text-rose-500 mb-3"></i>
+                            <h4 class="font-serif font-bold text-xl text-stone-900 mb-2">Award Winning</h4>
+                            <p class="text-stone-500 font-light text-sm">Voted best luxury salon 3 years in a row.</p>
+                        </div>
+                        <div>
+                            <i class="ph ph-leaf text-4xl text-rose-500 mb-3"></i>
+                            <h4 class="font-serif font-bold text-xl text-stone-900 mb-2">Eco-Friendly</h4>
+                            <p class="text-stone-500 font-light text-sm">Sustainable practices and organic product lines.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Services Section with Tabs -->
+    <section id="services" class="py-24 bg-stone-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                    <h2 class="text-rose-500 font-medium tracking-widest uppercase">Our Offerings</h2>
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                </div>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-stone-900 mb-6">Curated Beauty Services</h3>
+                <p class="text-stone-600 text-lg font-light">Explore our comprehensive menu designed to pamper you from head to toe. Select a category below to view specific treatments.</p>
+            </div>
+
+            <!-- Tabs Navigation -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12" data-aos="fade-up" data-aos-delay="100">
+                <button class="tab-btn active px-8 py-3 border border-stone-200 text-stone-600 font-medium uppercase tracking-wider text-sm hover:border-rose-500 transition-all" onclick="openTab('hair')">Hair Studio</button>
+                <button class="tab-btn px-8 py-3 border border-stone-200 text-stone-600 font-medium uppercase tracking-wider text-sm hover:border-rose-500 transition-all" onclick="openTab('skin')">Skin & Face</button>
+                <button class="tab-btn px-8 py-3 border border-stone-200 text-stone-600 font-medium uppercase tracking-wider text-sm hover:border-rose-500 transition-all" onclick="openTab('nails')">Nail Artistry</button>
+            </div>
+
+            <!-- Tab Content: Hair -->
+            <div id="hair" class="tab-content active max-w-4xl mx-auto">
+                <div class="bg-white p-8 md:p-12 shadow-xl border-t-4 border-rose-500">
+                    <div class="flex flex-col md:flex-row gap-12 items-center mb-10 border-b border-stone-100 pb-10">
+                        <img src="https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&q=80&w=400" alt="Hair" class="w-full md:w-1/3 h-64 object-cover rounded-sm shadow-md">
+                        <div class="md:w-2/3">
+                            <h4 class="text-3xl font-serif font-bold text-stone-900 mb-4">Precision & Color</h4>
+                            <p class="text-stone-600 font-light leading-relaxed">Our master stylists create bespoke looks that complement your face shape and lifestyle. From subtle trims to dramatic color transformations, we use advanced techniques to ensure your hair remains healthy and vibrant.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Signature Women's Cut</h5>
+                                <p class="text-stone-500 text-sm font-light">Includes consultation, wash, scalp massage, and blowout.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$85+</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Balayage & Ombre</h5>
+                                <p class="text-stone-500 text-sm font-light">Custom hand-painted highlights for a natural, sun-kissed look.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$180+</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Full Color Transformation</h5>
+                                <p class="text-stone-500 text-sm font-light">All-over color using premium, nourishing dyes.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$130+</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Keratin Smoothing Treatment</h5>
+                                <p class="text-stone-500 text-sm font-light">Eliminate frizz and add intense shine lasting up to 12 weeks.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$250+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Skin -->
+            <div id="skin" class="tab-content max-w-4xl mx-auto">
+                <div class="bg-white p-8 md:p-12 shadow-xl border-t-4 border-rose-500">
+                    <div class="flex flex-col md:flex-row gap-12 items-center mb-10 border-b border-stone-100 pb-10">
+                        <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=400" alt="Skin" class="w-full md:w-1/3 h-64 object-cover rounded-sm shadow-md">
+                        <div class="md:w-2/3">
+                            <h4 class="text-3xl font-serif font-bold text-stone-900 mb-4">Glow & Rejuvenate</h4>
+                            <p class="text-stone-600 font-light leading-relaxed">Restore your skin's natural radiance. Our clinical and holistic therapies target specific concerns like aging, acne, and hyperpigmentation, leaving you with a flawless, luminous complexion.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Deep Cleansing Facial</h5>
+                                <p class="text-stone-500 text-sm font-light">Purifies pores, exfoliates dead cells, and hydrates deeply.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$110</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Anti-Aging Gold Treatment</h5>
+                                <p class="text-stone-500 text-sm font-light">Utilizes 24k gold flakes to stimulate collagen and firm the skin.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$175</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Chemical Peel</h5>
+                                <p class="text-stone-500 text-sm font-light">Resurfaces the skin to improve texture and tone.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$140</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">LED Light Therapy Add-on</h5>
+                                <p class="text-stone-500 text-sm font-light">Targeted light waves to reduce inflammation and kill bacteria.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$45</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Content: Nails -->
+            <div id="nails" class="tab-content max-w-4xl mx-auto">
+                <div class="bg-white p-8 md:p-12 shadow-xl border-t-4 border-rose-500">
+                    <div class="flex flex-col md:flex-row gap-12 items-center mb-10 border-b border-stone-100 pb-10">
+                        <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=400" alt="Nails" class="w-full md:w-1/3 h-64 object-cover rounded-sm shadow-md">
+                        <div class="md:w-2/3">
+                            <h4 class="text-3xl font-serif font-bold text-stone-900 mb-4">Artistry & Care</h4>
+                            <p class="text-stone-600 font-light leading-relaxed">Experience immaculate nail care. Whether you prefer a classic, understated nude or intricate, avant-garde nail art, our technicians provide long-lasting, flawless results.</p>
+                        </div>
+                    </div>
+                    <div class="space-y-6">
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Classic Spa Manicure</h5>
+                                <p class="text-stone-500 text-sm font-light">Nail shaping, cuticle care, hand massage, and polish.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$40</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Luxury Gel Extensions</h5>
+                                <p class="text-stone-500 text-sm font-light">Durable, natural-looking length without the damage of acrylics.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$95</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Signature Pedicure</h5>
+                                <p class="text-stone-500 text-sm font-light">Includes an exfoliating scrub, hot stone massage, and polish.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$65</span>
+                        </div>
+                        <div class="flex justify-between items-baseline border-b border-stone-100 pb-2 border-dashed">
+                            <div>
+                                <h5 class="font-bold text-stone-900 text-lg">Custom Nail Art</h5>
+                                <p class="text-stone-500 text-sm font-light">Hand-painted designs, chrome, or crystal embellishments.</p>
+                            </div>
+                            <span class="font-serif font-bold text-rose-600 text-xl ml-4">$15+</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                    <h2 class="text-rose-500 font-medium tracking-widest uppercase">Our Work</h2>
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                </div>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-stone-900">The Glow Gallery</h3>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="0">
+                    <img src="https://images.unsplash.com/photo-1521590832167-7bfcfaa6362f?auto=format&fit=crop&q=80&w=400" alt="Gallery 1" class="gallery-img w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph ph-instagram-logo text-3xl text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&q=80&w=400" alt="Gallery 2" class="gallery-img w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph ph-instagram-logo text-3xl text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="https://images.unsplash.com/photo-1512496015851-a1c8ce8b105c?auto=format&fit=crop&q=80&w=400" alt="Gallery 3" class="gallery-img w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph ph-instagram-logo text-3xl text-white"></i>
+                    </div>
+                </div>
+                <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="https://images.unsplash.com/photo-1516975080661-460a4f5fbcfa?auto=format&fit=crop&q=80&w=400" alt="Gallery 4" class="gallery-img w-full h-64 object-cover">
+                    <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <i class="ph ph-instagram-logo text-3xl text-white"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-stone-900 text-stone-100 relative overflow-hidden">
+        <div class="absolute top-0 right-0 p-12 opacity-5">
+            <i class="ph ph-quotes text-9xl"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <div class="flex items-center justify-center gap-4 mb-4">
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                    <h2 class="text-rose-500 font-medium tracking-widest uppercase">Testimonials</h2>
+                    <div class="h-[1px] w-12 bg-rose-500"></div>
+                </div>
+                <h3 class="text-4xl md:text-5xl font-serif font-bold text-white">What Our Clients Say</h3>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-stone-800 p-8 rounded-sm shadow-lg" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex text-rose-500 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-stone-300 font-light italic mb-6">"Absolutely incredible experience! The staff is so welcoming and my hair has never looked better. The balayage was done perfectly."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center text-white font-serif font-bold">EM</div>
+                        <div>
+                            <p class="font-bold text-white">Emily M.</p>
+                            <p class="text-stone-500 text-sm">Hair Client</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-stone-800 p-8 rounded-sm shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex text-rose-500 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-stone-300 font-light italic mb-6">"The Deep Cleansing Facial changed my skin completely. I felt so relaxed and glowing for weeks after. Highly recommend the Glow Salon team!"</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center text-white font-serif font-bold">SJ</div>
+                        <div>
+                            <p class="font-bold text-white">Samantha J.</p>
+                            <p class="text-stone-500 text-sm">Skin Client</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-stone-800 p-8 rounded-sm shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex text-rose-500 mb-4">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-stone-300 font-light italic mb-6">"My go-to place for nails. Their attention to detail with nail art is unmatched. Plus, the salon itself is absolutely beautiful and clean."</p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-10 h-10 rounded-full bg-rose-600 flex items-center justify-center text-white font-serif font-bold">AT</div>
+                        <div>
+                            <p class="font-bold text-white">Ashley T.</p>
+                            <p class="text-stone-500 text-sm">Nail Client</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 pt-20 pb-10 text-stone-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-1">
+                    <div class="flex items-center mb-6">
+                        <i class="ph ph-sparkle text-3xl text-rose-500 mr-2"></i>
+                        <span class="font-serif font-bold text-2xl text-white">Glow Salon</span>
+                    </div>
+                    <p class="text-stone-400 font-light mb-6">Where elegance meets expertise. Experience the standard in beauty care.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-white hover:bg-rose-600 transition"><i class="ph ph-instagram-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-white hover:bg-rose-600 transition"><i class="ph ph-facebook-logo text-xl"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-white hover:bg-rose-600 transition"><i class="ph ph-pinterest-logo text-xl"></i></a>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-white font-serif font-bold text-lg mb-6">Quick Links</h4>
+                    <ul class="space-y-3 font-light">
+                        <li><a href="#home" class="hover:text-rose-400 transition">Home</a></li>
+                        <li><a href="#about" class="hover:text-rose-400 transition">About Us</a></li>
+                        <li><a href="#services" class="hover:text-rose-400 transition">Our Services</a></li>
+                        <li><a href="#gallery" class="hover:text-rose-400 transition">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-serif font-bold text-lg mb-6">Visit Us</h4>
+                    <ul class="space-y-4 font-light">
+                        <li class="flex items-start">
+                            <i class="ph ph-map-pin text-rose-500 text-xl mr-3 mt-1"></i>
+                            <span>123 Beauty Boulevard<br>Luxury District, NY 10001</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph ph-phone text-rose-500 text-xl mr-3"></i>
+                            <span>(555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="ph ph-envelope text-rose-500 text-xl mr-3"></i>
+                            <span>hello@glowsalon.com</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-serif font-bold text-lg mb-6">Opening Hours</h4>
+                    <ul class="space-y-3 font-light">
+                        <li class="flex justify-between border-b border-stone-800 pb-2">
+                            <span>Mon - Fri</span>
+                            <span>9:00 AM - 8:00 PM</span>
+                        </li>
+                        <li class="flex justify-between border-b border-stone-800 pb-2">
+                            <span>Saturday</span>
+                            <span>10:00 AM - 6:00 PM</span>
+                        </li>
+                        <li class="flex justify-between border-b border-stone-800 pb-2 text-rose-500">
+                            <span>Sunday</span>
+                            <span>Closed</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-stone-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm font-light">
+                <p>&copy; 2026 Glow Salon. All rights reserved.</p>
+                <div class="space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS JS and Custom Scripts -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        // Initialize Animations
+        AOS.init({
+            once: true, // whether animation should happen only once - while scrolling down
+            offset: 50, // offset (in px) from the original trigger point
+        });
+
+        // Tab functionality
+        function openTab(tabName) {
+            // Hide all tab contents
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            
+            // Remove active class from all buttons
+            tablinks = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active");
+            }
+            
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(tabName).classList.add("active");
+            
+            // Find the button that corresponds to the tabName and make it active
+            for (i = 0; i < tablinks.length; i++) {
+                if(tablinks[i].getAttribute('onclick') === "openTab('" + tabName + "')") {
+                    tablinks[i].classList.add("active");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
