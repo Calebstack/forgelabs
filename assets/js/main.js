@@ -469,28 +469,42 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('DOMContentLoaded', () => {
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
-    
-    const currentTheme = localStorage.getItem('theme');
-    if (currentTheme === 'light') {
-        body.classList.add('light-mode');
-        if(themeToggle) {
+
+    // One-time migration: clear any old saved theme so light is the fresh default.
+    // Remove this block after first deployment if you want to persist user choices.
+    if (!localStorage.getItem('fl_theme_v2')) {
+        localStorage.removeItem('theme');
+        localStorage.setItem('fl_theme_v2', '1');
+    }
+
+    // Light mode is the CSS default — only apply dark-mode class if user chose it.
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.classList.add('dark-mode');
+        if (themeToggle) {
+            themeToggle.innerHTML = '<i class="ph ph-sun"></i>';
+        }
+    } else {
+        // Default: light (no class needed). Show moon icon to switch to dark.
+        localStorage.removeItem('theme'); // clear any stale 'light' value
+        if (themeToggle) {
             themeToggle.innerHTML = '<i class="ph ph-moon"></i>';
         }
     }
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            body.classList.toggle('light-mode');
-            
-            let theme = 'dark';
-            if (body.classList.contains('light-mode')) {
-                theme = 'light';
+            if (body.classList.contains('dark-mode')) {
+                // Switch TO light
+                body.classList.remove('dark-mode');
                 themeToggle.innerHTML = '<i class="ph ph-moon"></i>';
+                localStorage.removeItem('theme'); // no entry = light (default)
             } else {
+                // Switch TO dark
+                body.classList.add('dark-mode');
                 themeToggle.innerHTML = '<i class="ph ph-sun"></i>';
+                localStorage.setItem('theme', 'dark');
             }
-            
-            localStorage.setItem('theme', theme);
         });
     }
 });

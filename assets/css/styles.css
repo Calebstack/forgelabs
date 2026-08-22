@@ -6,23 +6,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 /* ==================== CSS VARIABLES ==================== */
+/* Light mode is the default (no class needed) */
 :root {
-  /* Colors */
-  --bg-deep: #0a0a0f;
-  --bg-card: #12121a;
-  --primary: #8b5cf6;
-  --primary-glow: #a78bfa;
-  --secondary: #7c3aed;
-  --text-primary: #e2e8f0;
-  --text-secondary: #94a3b8;
-  --metallic: #c0c0d0;
+  /* Colors — LIGHT MODE */
+  --bg-deep: #f8f9fa;
+  --bg-card: #ffffff;
+  --primary: #7c3aed;
+  --primary-glow: #8b5cf6;
+  --secondary: #6d28d9;
+  --text-primary: #1e293b;
+  --text-secondary: #475569;
+  --metallic: #334155;
   --gradient-start: #6d28d9;
   --gradient-end: #a855f7;
 
   /* Glass */
-  --glass-bg: rgba(18, 18, 26, 0.7);
-  --glass-border: rgba(139, 92, 246, 0.1);
-  --glass-border-hover: rgba(139, 92, 246, 0.4);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(139, 92, 246, 0.2);
+  --glass-border-hover: rgba(139, 92, 246, 0.5);
 
   /* Fonts */
   --font-body: 'Inter', system-ui, sans-serif;
@@ -31,6 +32,23 @@
   /* Spacing */
   --nav-height: 70px;
 }
+
+/* Dark mode override */
+body.dark-mode {
+  --bg-deep: #0a0a0f;
+  --bg-card: #12121a;
+  --primary: #8b5cf6;
+  --primary-glow: #a78bfa;
+  --secondary: #7c3aed;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --metallic: #c0c0d0;
+
+  --glass-bg: rgba(18, 18, 26, 0.7);
+  --glass-border: rgba(139, 92, 246, 0.1);
+  --glass-border-hover: rgba(139, 92, 246, 0.4);
+}
+
 
 /* ==================== RESET & BASE ==================== */
 *, *::before, *::after {
@@ -441,8 +459,10 @@ img { max-width: 100%; display: block; }
 /* Stats Row */
 .stats-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 .stat-card {
@@ -588,6 +608,11 @@ img { max-width: 100%; display: block; }
   overflow: hidden;
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
 }
 
 .project-card.hidden {
@@ -596,7 +621,8 @@ img { max-width: 100%; display: block; }
 
 .project-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.2);
+  box-shadow: 0 20px 50px rgba(139, 92, 246, 0.2);
+  border-color: var(--glass-border-hover);
 }
 
 .project-image {
@@ -605,7 +631,21 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
   transition: transform 0.5s ease;
+  display: block;
+}
+
+.project-card:hover .project-image img {
+  transform: scale(1.04);
 }
 
 .project-placeholder-icon {
@@ -613,65 +653,43 @@ img { max-width: 100%; display: block; }
   color: rgba(255, 255, 255, 0.15);
 }
 
-.project-card:hover .project-image {
-  transform: scale(1.05);
-}
-
-.project-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(10, 10, 15, 0.95) 0%, rgba(10, 10, 15, 0.7) 50%, transparent 100%);
+/* Text block sits permanently BELOW the image */
+.project-info {
+  padding: 1.4rem 1.6rem 1.6rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.8rem;
-  opacity: 0;
-  transition: opacity 0.4s ease;
+  gap: 0.4rem;
+  flex-grow: 1;
 }
 
-.project-card:hover .project-overlay {
-  opacity: 1;
+.project-info h3 {
+  font-size: 1.15rem;
+  color: var(--text-primary);
+  font-weight: 700;
 }
 
-.project-overlay h3 {
-  font-size: 1.2rem;
-  color: #fff;
-  margin-bottom: 0.5rem;
-  transform: translateY(10px);
-  transition: transform 0.4s ease;
-}
-
-.project-overlay p {
-  font-size: 0.85rem;
+.project-info p {
+  font-size: 0.875rem;
   color: var(--text-secondary);
-  margin-bottom: 0.8rem;
-  transform: translateY(10px);
-  transition: transform 0.4s ease 0.05s;
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-.project-card:hover .project-overlay h3,
-.project-card:hover .project-overlay p,
-.project-card:hover .project-overlay .project-tags {
-  transform: translateY(0);
+.project-link-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary);
+  margin-top: 0.6rem;
+  transition: gap 0.2s ease;
 }
 
-.project-tags {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  transform: translateY(10px);
-  transition: transform 0.4s ease 0.1s;
+.project-card:hover .project-link-hint {
+  gap: 0.7rem;
 }
 
-.project-tags span {
-  background: rgba(139, 92, 246, 0.2);
-  color: var(--primary-glow);
-  padding: 0.2rem 0.7rem;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  font-weight: 500;
-}
+
 
 /* ==================== CONTACT SECTION ==================== */
 .contact-content {
@@ -883,6 +901,12 @@ img { max-width: 100%; display: block; }
   .stats-row {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .stats-row .stat-card:last-child {
+    grid-column: 1 / -1;
+    width: calc((100% - 1.5rem) / 2);
+    justify-self: center;
+  }
 }
 
 /* Mobile */
@@ -962,6 +986,10 @@ img { max-width: 100%; display: block; }
     gap: 1rem;
   }
 
+  .stats-row .stat-card:last-child {
+    width: calc((100% - 1rem) / 2);
+  }
+
   .about-values {
     grid-template-columns: 1fr;
   }
@@ -991,60 +1019,71 @@ img { max-width: 100%; display: block; }
 }
 
 
-/* ==================== LIGHT MODE ==================== */
-body.light-mode {
-  --bg-deep: #f8f9fa;
-  --bg-card: #ffffff;
-  --primary: #7c3aed;
-  --primary-glow: #8b5cf6;
-  --secondary: #6d28d9;
-  --text-primary: #1e293b;
-  --text-secondary: #475569;
-  --metallic: #334155;
-  
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(139, 92, 246, 0.2);
-  --glass-border-hover: rgba(139, 92, 246, 0.5);
-}
+/* Light mode is now the CSS default — no body.light-mode overrides needed */
+/* These are the dark-mode specific component overrides */
 
-body.light-mode .navbar.scrolled {
+.navbar.scrolled {
   background: rgba(248, 249, 250, 0.85);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
 
-body.light-mode .project-overlay {
-  background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 50%, transparent 100%);
+body.dark-mode .navbar.scrolled {
+  background: rgba(10, 10, 15, 0.85);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
 }
 
-body.light-mode .project-overlay h3 {
-  color: var(--text-primary);
-}
-
-body.light-mode .nav-links {
+.nav-links {
   background: rgba(248, 249, 250, 0.98);
 }
 
-body.light-mode .footer {
+body.dark-mode .nav-links {
+  background: rgba(10, 10, 15, 0.98);
+}
+
+.footer {
   background: #f1f5f9;
 }
 
-body.light-mode .project-placeholder-icon {
+body.dark-mode .footer {
+  background: #0a0a0f;
+}
+
+.project-placeholder-icon {
   color: rgba(0, 0, 0, 0.15);
 }
 
-body.light-mode .form-group input,
-body.light-mode .form-group textarea {
+body.dark-mode .project-placeholder-icon {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.form-group input,
+.form-group textarea {
   background: rgba(0, 0, 0, 0.03);
 }
 
-body.light-mode .form-group input:focus,
-body.light-mode .form-group textarea:focus {
+body.dark-mode .form-group input,
+body.dark-mode .form-group textarea {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
   background: #fff;
 }
 
-body.light-mode .orb {
+body.dark-mode .form-group input:focus,
+body.dark-mode .form-group textarea:focus {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.orb {
   opacity: 0.15;
 }
+
+body.dark-mode .orb {
+  opacity: 0.4;
+}
+
 
 /* ==================== BACKGROUND ANIMATION ==================== */
 .bg-animation {
