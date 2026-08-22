@@ -69,27 +69,81 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Mobile Menu Slide Animation */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.35s ease, opacity 0.3s ease;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800 antialiased overflow-x-hidden">
     
     <!-- Navbar -->
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 transition-all duration-300">
+    <nav class="bg-white/98 backdrop-blur-md shadow-md sticky top-0 z-50 transition-all duration-300">
+        <!-- Top accent line -->
+        <div class="h-[3px] bg-gradient-to-r from-rose-300 via-rose-500 to-rose-300"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20">
-                <div class="flex items-center">
-                    <i class="ph ph-sparkle text-3xl text-rose-500 mr-2"></i>
-                    <span class="font-serif font-bold text-2xl text-stone-900 tracking-tight">Glow Salon</span>
+            <div class="flex justify-between items-center h-20">
+
+                <!-- Logo -->
+                <a href="#home" class="flex items-center group">
+                    <div class="relative mr-3">
+                        <i class="ph ph-sparkle text-3xl text-rose-500 group-hover:rotate-12 transition-transform duration-300"></i>
+                    </div>
+                    <div>
+                        <span class="font-serif font-bold text-2xl text-stone-900 tracking-tight leading-none block">Glow <span class="text-rose-500">Salon</span></span>
+                        <span class="text-[10px] uppercase tracking-[0.2em] text-stone-400 font-medium">Hair · Skin · Nails</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-1">
+                    <a href="#home" class="relative px-4 py-2 text-stone-600 hover:text-rose-600 font-medium transition duration-300 group text-sm uppercase tracking-wide">
+                        Home
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-rose-500 group-hover:w-4/5 transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="#about" class="relative px-4 py-2 text-stone-600 hover:text-rose-600 font-medium transition duration-300 group text-sm uppercase tracking-wide">
+                        About
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-rose-500 group-hover:w-4/5 transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="#services" class="relative px-4 py-2 text-stone-600 hover:text-rose-600 font-medium transition duration-300 group text-sm uppercase tracking-wide">
+                        Services
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-rose-500 group-hover:w-4/5 transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <a href="#gallery" class="relative px-4 py-2 text-stone-600 hover:text-rose-600 font-medium transition duration-300 group text-sm uppercase tracking-wide">
+                        Gallery
+                        <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-rose-500 group-hover:w-4/5 transition-all duration-300 rounded-full"></span>
+                    </a>
+                    <!-- Book Now CTA -->
+                    <a href="#services" class="ml-4 px-6 py-2.5 bg-rose-500 text-white text-sm font-semibold uppercase tracking-wider hover:bg-rose-600 transition-all duration-300 shadow-md hover:shadow-rose-200 hover:shadow-lg rounded-sm flex items-center gap-2">
+                        <i class="ph ph-calendar-check text-base"></i> Book Now
+                    </a>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-stone-600 hover:text-rose-600 font-medium transition">Home</a>
-                    <a href="#about" class="text-stone-600 hover:text-rose-600 font-medium transition">About</a>
-                    <a href="#services" class="text-stone-600 hover:text-rose-600 font-medium transition">Services</a>
-                    <a href="#gallery" class="text-stone-600 hover:text-rose-600 font-medium transition">Gallery</a>
-                </div>
-                <div class="flex items-center md:hidden">
-                    <i class="ph ph-list text-3xl text-stone-800"></i>
-                </div>
+
+                <!-- Mobile Hamburger -->
+                <button id="mobile-btn" class="md:hidden flex items-center justify-center w-10 h-10 rounded-sm text-stone-800 hover:text-rose-600 hover:bg-rose-50 transition focus:outline-none">
+                    <i id="mobile-btn-icon" class="ph ph-list text-3xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="md:hidden bg-white border-t border-rose-100">
+            <div class="max-w-7xl mx-auto px-4 py-3 flex flex-col space-y-1">
+                <a href="#home"    class="mobile-nav-link block px-4 py-3 text-stone-700 hover:text-rose-600 hover:bg-rose-50 font-medium uppercase tracking-wide text-sm rounded transition">Home</a>
+                <a href="#about"   class="mobile-nav-link block px-4 py-3 text-stone-700 hover:text-rose-600 hover:bg-rose-50 font-medium uppercase tracking-wide text-sm rounded transition">About</a>
+                <a href="#services" class="mobile-nav-link block px-4 py-3 text-stone-700 hover:text-rose-600 hover:bg-rose-50 font-medium uppercase tracking-wide text-sm rounded transition">Services</a>
+                <a href="#gallery" class="mobile-nav-link block px-4 py-3 text-stone-700 hover:text-rose-600 hover:bg-rose-50 font-medium uppercase tracking-wide text-sm rounded transition">Gallery</a>
+                <a href="#services" class="mobile-nav-link block mx-4 mt-2 mb-3 py-3 text-center bg-rose-500 text-white rounded-sm font-semibold uppercase tracking-wide text-sm hover:bg-rose-600 transition flex items-center justify-center gap-2">
+                    <i class="ph ph-calendar-check text-base"></i> Book Now
+                </a>
             </div>
         </div>
     </nav>
@@ -318,7 +372,7 @@
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="0">
-                    <img src="https://images.unsplash.com/photo-1521590832167-7bfcfaa6362f?auto=format&fit=crop&q=80&w=400" alt="Gallery 1" class="gallery-img w-full h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=400" alt="Hair Styling" class="gallery-img w-full h-64 object-cover">
                     <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph ph-instagram-logo text-3xl text-white"></i>
                     </div>
@@ -330,13 +384,13 @@
                     </div>
                 </div>
                 <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="https://images.unsplash.com/photo-1512496015851-a1c8ce8b105c?auto=format&fit=crop&q=80&w=400" alt="Gallery 3" class="gallery-img w-full h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=400" alt="Nail Art" class="gallery-img w-full h-64 object-cover">
                     <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph ph-instagram-logo text-3xl text-white"></i>
                     </div>
                 </div>
                 <div class="gallery-item overflow-hidden relative cursor-pointer" data-aos="zoom-in" data-aos-delay="300">
-                    <img src="https://images.unsplash.com/photo-1516975080661-460a4f5fbcfa?auto=format&fit=crop&q=80&w=400" alt="Gallery 4" class="gallery-img w-full h-64 object-cover">
+                    <img src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&q=80&w=400" alt="Skincare" class="gallery-img w-full h-64 object-cover">
                     <div class="absolute inset-0 bg-stone-900/40 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                         <i class="ph ph-instagram-logo text-3xl text-white"></i>
                     </div>
@@ -511,6 +565,35 @@
                 }
             }
         }
+    </script>
+
+    <!-- Mobile Menu Toggle -->
+    <script>
+        const mobileBtn = document.getElementById('mobile-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileBtnIcon = document.getElementById('mobile-btn-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileBtn.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.contains('open');
+            if (isOpen) {
+                mobileMenu.classList.remove('open');
+                mobileBtnIcon.classList.remove('ph-x');
+                mobileBtnIcon.classList.add('ph-list');
+            } else {
+                mobileMenu.classList.add('open');
+                mobileBtnIcon.classList.remove('ph-list');
+                mobileBtnIcon.classList.add('ph-x');
+            }
+        });
+
+        mobileNavLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.remove('open');
+                mobileBtnIcon.classList.remove('ph-x');
+                mobileBtnIcon.classList.add('ph-list');
+            });
+        });
     </script>
 </body>
 </html>

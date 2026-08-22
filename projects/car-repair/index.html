@@ -45,6 +45,18 @@
         .delay-300 { transition-delay: 300ms; }
         .delay-400 { transition-delay: 400ms; }
         .delay-500 { transition-delay: 500ms; }
+
+        /* Mobile Menu Slide Animation */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.35s ease, opacity 0.3s ease;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 overflow-x-hidden">
@@ -101,10 +113,22 @@
 
                 <!-- Mobile menu button -->
                 <div class="lg:hidden flex items-center reveal">
-                    <button class="text-brand-dark hover:text-brand-red focus:outline-none">
-                        <i class="ph ph-list text-3xl"></i>
+                    <button id="mobile-btn" class="text-brand-dark hover:text-brand-red focus:outline-none">
+                        <i id="mobile-btn-icon" class="ph ph-list text-3xl"></i>
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="lg:hidden bg-white border-t border-gray-200 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col space-y-1">
+                <a href="#" class="mobile-nav-link block px-4 py-3 text-brand-dark hover:text-brand-red hover:bg-brand-light font-semibold uppercase tracking-wide text-sm rounded transition">Home</a>
+                <a href="#about" class="mobile-nav-link block px-4 py-3 text-brand-dark hover:text-brand-red hover:bg-brand-light font-semibold uppercase tracking-wide text-sm rounded transition">About</a>
+                <a href="#services" class="mobile-nav-link block px-4 py-3 text-brand-dark hover:text-brand-red hover:bg-brand-light font-semibold uppercase tracking-wide text-sm rounded transition">Services</a>
+                <a href="#testimonials" class="mobile-nav-link block px-4 py-3 text-brand-dark hover:text-brand-red hover:bg-brand-light font-semibold uppercase tracking-wide text-sm rounded transition">Reviews</a>
+                <a href="#contact" class="mobile-nav-link block px-4 py-3 text-brand-dark hover:text-brand-red hover:bg-brand-light font-semibold uppercase tracking-wide text-sm rounded transition">Contact</a>
+                <a href="#appointment" class="mobile-nav-link block mx-4 mt-2 py-3 text-center bg-brand-red text-white rounded font-bold uppercase tracking-wide text-sm hover:bg-red-700 transition">Book Appointment</a>
             </div>
         </div>
     </nav>
@@ -508,6 +532,35 @@
 
             document.querySelectorAll('.reveal').forEach(el => {
                 observer.observe(el);
+            });
+        });
+    </script>
+    <!-- Mobile Menu Toggle Script -->
+    <script>
+        const mobileBtn = document.getElementById('mobile-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileBtnIcon = document.getElementById('mobile-btn-icon');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileBtn.addEventListener('click', function () {
+            const isOpen = mobileMenu.classList.contains('open');
+            if (isOpen) {
+                mobileMenu.classList.remove('open');
+                mobileBtnIcon.classList.remove('ph-x');
+                mobileBtnIcon.classList.add('ph-list');
+            } else {
+                mobileMenu.classList.add('open');
+                mobileBtnIcon.classList.remove('ph-list');
+                mobileBtnIcon.classList.add('ph-x');
+            }
+        });
+
+        // Close menu when a link is clicked
+        mobileNavLinks.forEach(function (link) {
+            link.addEventListener('click', function () {
+                mobileMenu.classList.remove('open');
+                mobileBtnIcon.classList.remove('ph-x');
+                mobileBtnIcon.classList.add('ph-list');
             });
         });
     </script>
