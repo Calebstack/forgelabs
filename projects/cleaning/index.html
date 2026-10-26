@@ -1,692 +1,252 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SparkleClean | Premium Cleaning Services</title>
-
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <!-- AOS (Animate On Scroll) -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <!-- Swiper Carousel -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            DEFAULT: '#0077B6',
-                            dark: '#003B5C',
-                            light: '#E6F4FB'
-                        },
-                        secondary: {
-                            DEFAULT: '#FFD700',
-                            light: '#FFF9D6'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                    },
-                    boxShadow: {
-                        'soft': '0 20px 40px -15px rgba(0,0,0,0.05)',
-                        'glow': '0 0 20px rgba(255, 215, 0, 0.3)',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        html { scroll-behavior: smooth; }
-        body { -webkit-font-smoothing: antialiased; }
-        
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .glass-dark {
-            background: rgba(0, 59, 92, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        /* Navbar Scrolled State */
-        .navbar { transition: all 0.3s ease; }
-        .navbar.scrolled {
-            background: rgba(255, 255, 255, 0.95) !important;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-        .navbar.scrolled .nav-link { color: #1f2937; }
-        .navbar.scrolled .nav-link:hover { color: #0077B6; }
-        .navbar.scrolled .logo-text { color: #003B5C; }
-        
-        /* Custom Button */
-        .btn-gold {
-            background: linear-gradient(135deg, #FFD700, #FBBF24);
-            color: #003B5C;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px -10px rgba(251, 191, 36, 0.5);
-        }
-        .btn-gold:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 25px -10px rgba(251, 191, 36, 0.7);
-        }
-        
-        .btn-outline {
-            border: 2px solid white;
-            color: white;
-            transition: all 0.3s ease;
-        }
-        .btn-outline:hover {
-            background: white;
-            color: #003B5C;
-        }
-
-        /* Blob Background */
-        .blob-bg {
-            position: absolute;
-            filter: blur(80px);
-            z-index: -1;
-            opacity: 0.4;
-            border-radius: 50%;
-        }
-
-        /* Swiper overrides */
-        .swiper-pagination-bullet-active { background: #0077B6 !important; }
-        
-        /* Gradient Text */
-        .text-gradient {
-            background: linear-gradient(135deg, #0077B6, #003B5C);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
+    <meta name="description" content="SparkleClean — premium residential and commercial cleaning with eco-friendly products, transparent pricing and a free instant quote. (Concept demo by ForgeLabs)">
+    <meta name="theme-color" content="#003b5c">
+    <link rel="icon" type="image/png" href="../../assets/images/icon-192.png" sizes="192x192">
+    <link rel="stylesheet" href="../../assets/css/fonts.css">
+    <link rel="stylesheet" href="../../assets/vendor/phosphor/regular.css">
+    <link rel="stylesheet" href="../../assets/vendor/phosphor/fill.css">
+    <link rel="stylesheet" href="../../assets/css/project-base.css">
+    <link rel="stylesheet" href="../../assets/css/cleaning.css">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans overflow-x-hidden">
 
-    <!-- Decorative Background Blobs -->
-    <div class="blob-bg w-96 h-96 bg-primary-light top-0 left-[-100px]"></div>
-    <div class="blob-bg w-[500px] h-[500px] bg-secondary-light top-[40%] right-[-200px]"></div>
+<body>
+    <!-- ===== NAV ===== -->
+    <header class="nav" data-nav>
+        <div class="container nav__in">
+            <a href="#hero" class="logo"><span class="logo__mark"><i class="ph-fill ph-sparkle"></i></span>SparkleClean</a>
+            <nav class="nav__links" data-menu data-spy aria-label="Main">
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#gallery">Gallery</a>
+                <a href="#reviews">Reviews</a>
+                <a href="#contact" class="btn btn--gold">Get a quote</a>
+            </nav>
+            <button class="burger" data-menu-btn aria-label="Menu" aria-expanded="false"><i class="ph ph-list"></i></button>
+        </div>
+    </header>
 
-    <!-- Navbar -->
-    <nav id="navbar" class="navbar fixed w-full top-0 z-50 py-4 text-white bg-transparent">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between">
-                <a href="#hero" class="flex items-center space-x-3 group">
-                    <div class="bg-white rounded-2xl p-2.5 shadow-soft relative flex items-center justify-center transform group-hover:scale-105 transition duration-300">
-                        <i class="ph ph-sparkle text-2xl text-primary"></i>
+    <main>
+        <!-- ===== HERO ===== -->
+        <section class="hero" id="hero">
+            <div class="hero__bg"><img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1800&q=75" alt="" onerror="this.remove()"></div>
+            <div class="container hero__grid">
+                <div>
+                    <p class="rating reveal"><i class="ph-fill ph-star"></i> Rated 4.9/5 by 500+ happy clients</p>
+                    <h1 class="reveal" style="--d:80ms">Experience the <em>luxury</em> of a spotless space.</h1>
+                    <p class="lead reveal" style="--d:160ms">Premium residential and commercial cleaning tailored to your lifestyle. We don't just clean — we restore your peace of mind.</p>
+                    <div class="hero__cta reveal" style="--d:240ms">
+                        <a href="#contact" class="btn btn--gold">Book now <i class="ph ph-arrow-right"></i></a>
+                        <a href="#services" class="btn btn--line">Explore services</a>
                     </div>
-                    <span class="logo-text font-serif text-2xl font-bold tracking-tight">SparkleClean</span>
-                </a>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="nav-link font-medium text-sm tracking-wide uppercase hover:text-secondary transition duration-200">About</a>
-                    <a href="#services" class="nav-link font-medium text-sm tracking-wide uppercase hover:text-secondary transition duration-200">Services</a>
-                    <a href="#pricing" class="nav-link font-medium text-sm tracking-wide uppercase hover:text-secondary transition duration-200">Pricing</a>
-                    <a href="#gallery" class="nav-link font-medium text-sm tracking-wide uppercase hover:text-secondary transition duration-200">Gallery</a>
-                    <a href="#testimonials" class="nav-link font-medium text-sm tracking-wide uppercase hover:text-secondary transition duration-200">Reviews</a>
-                    <a href="#contact" class="btn-gold px-6 py-2.5 rounded-xl font-bold text-sm tracking-wide uppercase">Get a Quote</a>
                 </div>
-                
-                <button id="mobile-menu-btn" class="md:hidden nav-link focus:outline-none">
-                    <i class="ph ph-list text-3xl"></i>
-                </button>
+                <aside class="hero-card reveal" style="--d:200ms">
+                    <span class="hero-card__badge"><b>100%</b><span>Guaranteed</span></span>
+                    <div class="hero-card__img"><img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=700&q=75" alt="Cleaning detail" onerror="this.remove()"></div>
+                    <h3>Impeccable attention to detail</h3>
+                    <p>Vetted professionals using eco-friendly products for a safe, brilliant clean — every single time.</p>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ===== STRIP ===== -->
+        <div class="strip">
+            <div class="container strip__grid reveal">
+                <div class="strip__item"><i class="ph ph-shield-check"></i><div><b>Vetted</b><span>Background-checked staff</span></div></div>
+                <div class="strip__item"><i class="ph ph-leaf"></i><div><b>Eco-safe</b><span>Non-toxic products</span></div></div>
+                <div class="strip__item"><i class="ph ph-clock-countdown"></i><div><b>On time</b><span>Punctual, every visit</span></div></div>
+                <div class="strip__item"><i class="ph ph-seal-check"></i><div><b>Guaranteed</b><span>Not happy? We re-clean</span></div></div>
             </div>
         </div>
-        
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white text-gray-800 absolute w-full shadow-xl rounded-b-2xl border-t border-gray-100">
-            <div class="px-4 py-6 space-y-4">
-                <a href="#about" class="block font-medium text-lg hover:text-primary">About</a>
-                <a href="#services" class="block font-medium text-lg hover:text-primary">Services</a>
-                <a href="#pricing" class="block font-medium text-lg hover:text-primary">Pricing</a>
-                <a href="#gallery" class="block font-medium text-lg hover:text-primary">Gallery</a>
-                <a href="#testimonials" class="block font-medium text-lg hover:text-primary">Reviews</a>
-                <a href="#contact" class="block text-center btn-gold py-3 rounded-xl font-bold mt-4">Get a Quote</a>
-            </div>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center pt-20">
-        <!-- Background Image -->
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=1920&q=80" alt="Beautiful Clean Living Room" class="w-full h-full object-cover object-center" />
-            <div class="absolute inset-0 bg-gradient-to-r from-primary-dark/90 via-primary-dark/70 to-transparent"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full grid lg:grid-cols-2 gap-12 items-center">
-            <div data-aos="fade-up" data-aos-duration="1000">
-                <div class="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md border border-white/30 rounded-full px-4 py-1.5 mb-6">
-                    <i class="ph-fill ph-star text-secondary"></i>
-                    <span class="text-white text-sm font-medium tracking-wide">Rated 4.9/5 by 500+ Happy Clients</span>
+        <!-- ===== ABOUT ===== -->
+        <section class="section" id="about">
+            <div class="container about">
+                <div class="about__media reveal">
+                    <div class="about__img"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=900&q=75" alt="A spotless bathroom" loading="lazy" onerror="this.remove()"></div>
+                    <div class="about__tag"><i class="ph-fill ph-heart"></i><div><b>500+</b><span>Homes made sparkle</span></div></div>
                 </div>
-                
-                <h1 class="font-serif text-5xl sm:text-6xl lg:text-7xl text-white font-bold leading-tight mb-6">
-                    Experience the <br/><span class="text-secondary italic">Luxury</span> of a <br/>Spotless Space.
-                </h1>
-                
-                <p class="text-lg text-gray-200 mb-10 max-w-lg leading-relaxed">
-                    Premium residential and commercial cleaning services tailored to your lifestyle. We don't just clean; we restore your peace of mind.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-5">
-                    <a href="#contact" class="btn-gold px-8 py-4 rounded-xl text-center font-bold text-lg flex items-center justify-center group">
-                        Book Now
-                        <i class="ph-bold ph-arrow-right ml-2 transform group-hover:translate-x-1 transition"></i>
-                    </a>
-                    <a href="#services" class="btn-outline px-8 py-4 rounded-xl text-center font-bold text-lg flex items-center justify-center">
-                        Explore Services
-                    </a>
-                </div>
-            </div>
-            
-            <!-- Hero Floating Card -->
-            <div class="hidden lg:block relative" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
-                <div class="glass p-8 rounded-3xl shadow-2xl relative">
-                    <div class="absolute -top-6 -right-6 bg-secondary text-primary-dark w-24 h-24 rounded-full flex flex-col items-center justify-center font-bold shadow-glow transform rotate-12">
-                        <span class="text-2xl">100%</span>
-                        <span class="text-xs uppercase">Guaranteed</span>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=600&q=80" alt="Cleaning Detail" class="w-full h-64 object-cover rounded-2xl mb-6 shadow-md" />
-                    <h3 class="font-serif text-2xl font-bold text-primary-dark mb-2">Impeccable Attention to Detail</h3>
-                    <p class="text-gray-600 mb-4">Our vetted professionals use eco-friendly products to ensure a safe and brilliant clean every single time.</p>
-                    <div class="flex items-center space-x-4 border-t border-gray-200 pt-4 mt-4">
-                        <div class="flex -space-x-2">
-                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar">
-                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Avatar">
-                            <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Avatar">
-                        </div>
-                        <p class="text-sm font-medium text-gray-500">Trusted by local families</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="py-24 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">What We Do</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-primary-dark mb-6">Exceptional Services for Every Need</h2>
-                <p class="text-gray-600 text-lg">From routine upkeep to specialized deep cleaning, we provide a comprehensive suite of services to make your space shine.</p>
-            </div>
-
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white p-8 rounded-3xl shadow-soft hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="0">
-                    <div class="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition duration-300 text-primary">
-                        <i class="ph ph-house-line text-3xl"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-3">Residential Cleaning</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Regular maintenance to keep your home feeling fresh, organized, and welcoming for you and your family.</p>
-
-                </div>
-                
-                <!-- Service 2 -->
-                <div class="bg-white p-8 rounded-3xl shadow-soft hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition duration-300 text-primary">
-                        <i class="ph ph-buildings text-3xl"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-3">Commercial Spaces</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Professional office cleaning that creates a productive, healthy environment for your employees and clients.</p>
-
-                </div>
-
-                <!-- Service 3 -->
-                <div class="bg-white p-8 rounded-3xl shadow-soft hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition duration-300 text-primary">
-                        <i class="ph ph-sparkle text-3xl"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-3">Deep Cleaning</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">An intensive top-to-bottom clean focusing on neglected areas, perfect for spring cleaning or post-events.</p>
-
-                </div>
-
-                <!-- Service 4 -->
-                <div class="bg-white p-8 rounded-3xl shadow-soft hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition duration-300 text-primary">
-                        <i class="ph ph-leaf text-3xl"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-3">Eco-Friendly</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Safe, non-toxic, and environmentally responsible cleaning solutions that are tough on dirt but gentle on the earth.</p>
-
-                </div>
-
-                <!-- Service 5 -->
-                <div class="bg-white p-8 rounded-3xl shadow-soft hover:shadow-xl transition duration-300 border border-gray-100 group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-16 h-16 rounded-2xl bg-primary-light flex items-center justify-center mb-6 group-hover:bg-primary group-hover:text-white transition duration-300 text-primary">
-                        <i class="ph ph-truck text-3xl"></i>
-                    </div>
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-3">Move In/Out</h3>
-                    <p class="text-gray-600 mb-6 leading-relaxed">Ensure a spotless transition. We prep homes for new occupants or help you leave your old space immaculate.</p>
-
-                </div>
-
-                <!-- Service 6 -->
-                <div class="bg-primary-dark p-8 rounded-3xl shadow-soft border border-primary text-white flex flex-col justify-center items-center text-center relative overflow-hidden" data-aos="fade-up" data-aos-delay="500">
-                    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white to-transparent"></div>
-                    <i class="ph ph-question text-5xl text-secondary mb-4 relative z-10"></i>
-                    <h3 class="font-serif text-2xl font-bold mb-3 relative z-10">Custom Request?</h3>
-                    <p class="text-gray-300 mb-6 relative z-10">Have a unique cleaning need? We can tailor a package specifically for you.</p>
-                    <a href="#contact" class="btn-gold px-6 py-2 rounded-xl font-bold text-sm uppercase relative z-10">Contact Us</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Pricing Section -->
-    <section id="pricing" class="py-24 bg-white relative">
-        <!-- Abstract shape -->
-        <div class="absolute top-0 w-full h-64 bg-gray-50 transform -skew-y-2 origin-top-left z-0"></div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Transparent Pricing</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Simple Plans, Brilliant Results</h2>
-                <p class="text-gray-600 text-lg">No hidden fees. Choose the level of sparkle that fits your needs.</p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-8 items-center max-w-6xl mx-auto">
-                <!-- Basic -->
-                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-200 hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="0">
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-2">Essential</h3>
-                    <p class="text-gray-500 mb-6">Perfect for regular upkeep.</p>
-                    <div class="flex items-baseline mb-8">
-                        <span class="text-4xl font-bold text-gray-900">$89</span>
-                        <span class="text-gray-500 ml-2">/ visit</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> 2 Hours of Cleaning</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Dusting & Vacuuming</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Kitchen Surface Wipe</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Basic Bathroom Polish</li>
+                <div class="reveal" style="--d:120ms">
+                    <span class="eyebrow">About SparkleClean</span>
+                    <h2>Setting a new standard for clean.</h2>
+                    <p>We started SparkleClean with one idea: a clean space should feel like a gift, not a chore. Our trained team brings hotel-grade care, premium equipment and gentle products to every home and office we visit.</p>
+                    <ul class="checks">
+                        <li><i class="ph-fill ph-check-circle"></i> Trained, insured and background-checked cleaners</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Eco-friendly products safe for kids and pets</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Flexible one-off or recurring schedules</li>
                     </ul>
-                    <a href="#contact" class="block w-full py-3 px-4 bg-white border border-gray-300 rounded-xl text-center font-bold text-gray-700 hover:border-primary hover:text-primary transition">Select Plan</a>
-                </div>
-
-                <!-- Premium (Highlighted) -->
-                <div class="bg-primary-dark rounded-3xl p-8 shadow-2xl transform lg:-translate-y-4 relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                    <div class="absolute top-0 right-0 bg-secondary text-primary-dark font-bold text-xs tracking-wider uppercase py-1 px-4 rounded-bl-xl z-10">
-                        Most Popular
-                    </div>
-                    <div class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                    
-                    <div class="relative z-10">
-                        <h3 class="font-serif text-2xl font-bold text-white mb-2">Signature Sparkle</h3>
-                        <p class="text-primary-light mb-6">The complete refresh package.</p>
-                        <div class="flex items-baseline mb-8">
-                            <span class="text-5xl font-bold text-white">$149</span>
-                            <span class="text-primary-light ml-2">/ visit</span>
-                        </div>
-                        <ul class="space-y-4 mb-8">
-                            <li class="flex items-start text-white"><i class="ph-bold ph-check text-secondary mt-1 mr-3"></i> 4 Hours of Deep Cleaning</li>
-                            <li class="flex items-start text-white"><i class="ph-bold ph-check text-secondary mt-1 mr-3"></i> Deep Kitchen & Appliance Ext.</li>
-                            <li class="flex items-start text-white"><i class="ph-bold ph-check text-secondary mt-1 mr-3"></i> Detailed Bathroom Scrub</li>
-                            <li class="flex items-start text-white"><i class="ph-bold ph-check text-secondary mt-1 mr-3"></i> Baseboards & Window Sills</li>
-                            <li class="flex items-start text-white"><i class="ph-bold ph-check text-secondary mt-1 mr-3"></i> Eco-Friendly Products Included</li>
-                        </ul>
-                        <a href="#contact" class="block w-full py-4 px-4 btn-gold rounded-xl text-center font-bold text-lg">Select Plan</a>
-                    </div>
-                </div>
-
-                <!-- Elite -->
-                <div class="bg-gray-50 rounded-3xl p-8 border border-gray-200 hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="200">
-                    <h3 class="font-serif text-2xl font-bold text-gray-900 mb-2">Ultimate Deep</h3>
-                    <p class="text-gray-500 mb-6">For neglected spaces or move-ins.</p>
-                    <div class="flex items-baseline mb-8">
-                        <span class="text-4xl font-bold text-gray-900">$249</span>
-                        <span class="text-gray-500 ml-2">/ visit</span>
-                    </div>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Top-to-Bottom Detail Clean</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Inside Cabinets & Fridge</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Carpet Spot Treatment</li>
-                        <li class="flex items-start text-gray-600"><i class="ph-bold ph-check text-primary mt-1 mr-3"></i> Upholstery Vacuuming</li>
-                    </ul>
-                    <a href="#contact" class="block w-full py-3 px-4 bg-white border border-gray-300 rounded-xl text-center font-bold text-gray-700 hover:border-primary hover:text-primary transition">Select Plan</a>
+                    <a href="#contact" class="btn btn--blue">Get a free quote <i class="ph ph-arrow-right"></i></a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Our Work</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Spotless Transformations</h2>
-                <p class="text-gray-600 text-lg">Browse through some of our recent cleaning commissions.</p>
-            </div>
-            
-            <div class="swiper fullGallerySwiper pb-12" data-aos="fade-up" data-aos-delay="100">
-                <div class="swiper-wrapper">
-                    <!-- Image 1 -->
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white group relative">
-                            <img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=800&q=80" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500" alt="Clean Room">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <h3 class="text-white font-bold text-xl">Living Room Deep Clean</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Image 2 -->
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white group relative">
-                            <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=800&q=80" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500" alt="Clean Bathroom">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <h3 class="text-white font-bold text-xl">Bathroom Sanitization</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Image 3 -->
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white group relative">
-                            <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=800&q=80" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500" alt="Clean Kitchen">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <h3 class="text-white font-bold text-xl">Kitchen Restoration</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Image 4 -->
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white group relative">
-                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500" alt="Clean Office">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <h3 class="text-white font-bold text-xl">Commercial Office Clean</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Image 5 -->
-                    <div class="swiper-slide">
-                        <div class="rounded-3xl overflow-hidden shadow-soft border-4 border-white group relative">
-                            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" class="w-full h-80 object-cover transform group-hover:scale-105 transition duration-500" alt="Clean House">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex items-end p-6">
-                                <h3 class="text-white font-bold text-xl">Move-In Prep</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section id="testimonials" class="py-24 bg-gray-50 relative overflow-hidden">
-        <!-- Background element -->
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-primary-light/30 rounded-l-full transform translate-x-1/3"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Reviews</span>
-                <h2 class="font-serif text-4xl md:text-5xl font-bold text-gray-900 mb-6">Loved by Homeowners</h2>
-                <p class="text-gray-600 text-lg">Don't just take our word for it. See what our clients have to say.</p>
-            </div>
-
-            <div class="max-w-4xl mx-auto">
-                <div class="relative">
-                    <i class="ph-fill ph-quotes text-8xl text-primary/10 absolute -top-10 -left-10 z-0"></i>
-                    <div class="swiper reviewSwiper relative z-10 pt-4" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="swiper-wrapper">
-                            <!-- Review 1 -->
-                            <div class="swiper-slide pb-12">
-                                <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 text-center">
-                                    <div class="flex justify-center text-secondary mb-6">
-                                        <i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i>
-                                    </div>
-                                    <p class="text-gray-700 text-xl italic mb-8 leading-relaxed">
-                                        "I was blown away by the attention to detail. They didn't just clean the surfaces; they moved appliances and got into corners I hadn't seen in years. Truly a premium service!"
-                                    </p>
-                                    <div class="flex flex-col items-center">
-                                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Sarah J." class="w-16 h-16 rounded-full object-cover mb-3 shadow-md border-2 border-white" />
-                                        <h4 class="font-bold text-gray-900 text-lg">Sarah Jenkins</h4>
-                                        <p class="text-sm text-gray-500">Residential Client</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Review 2 -->
-                            <div class="swiper-slide pb-12">
-                                <div class="bg-white p-10 rounded-3xl shadow-xl border border-gray-100 text-center">
-                                    <div class="flex justify-center text-secondary mb-6">
-                                        <i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i><i class="ph-fill ph-star text-2xl"></i>
-                                    </div>
-                                    <p class="text-gray-700 text-xl italic mb-8 leading-relaxed">
-                                        "As an office manager, finding reliable cleaners is tough. SparkleClean has been a dream. The office smells fresh every morning and their eco-products don't aggravate allergies."
-                                    </p>
-                                    <div class="flex flex-col items-center">
-                                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80" alt="Michael R." class="w-16 h-16 rounded-full object-cover mb-3 shadow-md border-2 border-white" />
-                                        <h4 class="font-bold text-gray-900 text-lg">Michael Ross</h4>
-                                        <p class="text-sm text-gray-500">Corporate Manager</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-pagination"></div>
-                    </div>
+        <!-- ===== SERVICES ===== -->
+        <section class="section" id="services" style="padding-top:0">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">What we do</span><h2>Exceptional services for every need</h2><p>From routine upkeep to specialised deep cleaning, a full suite of services to make your space shine.</p></div>
+                <div class="services">
+                    <article class="service reveal"><span class="ico"><i class="ph ph-house-line"></i></span><h3>Residential Cleaning</h3><p>Regular maintenance to keep your home fresh, organised and welcoming for you and your family.</p></article>
+                    <article class="service reveal" style="--d:80ms"><span class="ico"><i class="ph ph-buildings"></i></span><h3>Commercial Spaces</h3><p>Professional office cleaning that creates a productive, healthy environment for staff and clients.</p></article>
+                    <article class="service reveal" style="--d:160ms"><span class="ico"><i class="ph ph-sparkle"></i></span><h3>Deep Cleaning</h3><p>An intensive top-to-bottom clean of neglected areas — perfect for spring cleaning or after events.</p></article>
+                    <article class="service reveal"><span class="ico"><i class="ph ph-leaf"></i></span><h3>Eco-Friendly</h3><p>Safe, non-toxic, environmentally responsible solutions: tough on dirt, gentle on the planet.</p></article>
+                    <article class="service reveal" style="--d:80ms"><span class="ico"><i class="ph ph-truck"></i></span><h3>Move In / Out</h3><p>A spotless transition. We prep homes for new occupants or leave your old space immaculate.</p></article>
+                    <article class="service service--cta reveal" style="--d:160ms"><span class="ico"><i class="ph ph-question"></i></span><h3>Custom request?</h3><p>Have a unique need? We'll tailor a package just for you.</p><a href="#contact" class="btn btn--gold">Contact us</a></article>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Contact Form Split Section -->
-    <section id="contact" class="relative bg-white overflow-hidden">
-        <div class="grid lg:grid-cols-2">
-            <!-- Image Side -->
-            <div class="hidden lg:block relative min-h-[600px]">
-                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1000&q=80" alt="Clean space" class="absolute inset-0 w-full h-full object-cover" />
-                <div class="absolute inset-0 bg-primary/20 backdrop-blur-[2px]"></div>
-                
-                <!-- Floating Info Card -->
-                <div class="absolute bottom-12 left-12 right-12 glass p-8 rounded-3xl text-gray-800 shadow-2xl" data-aos="fade-up">
-                    <h3 class="font-serif text-2xl font-bold mb-2 text-primary-dark">We're Here to Help</h3>
-                    <p class="mb-4">Need immediate assistance or a custom walk-through? Give us a call.</p>
-                    <div class="flex items-center space-x-3 text-lg font-bold text-primary">
-                        <i class="ph-fill ph-phone-call text-2xl"></i>
-                        <span>1 (800) SPARKLE</span>
-                    </div>
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="section how" aria-labelledby="howT">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">Simple process</span><h2 id="howT">Three steps to a sparkling space</h2></div>
+                <div class="steps">
+                    <div class="step reveal"><div class="step__n">1</div><h3>Get your quote</h3><p>Tell us about your space and use our instant estimator for a clear price.</p></div>
+                    <div class="step reveal" style="--d:100ms"><div class="step__n">2</div><h3>Pick a time</h3><p>Choose a slot that suits you — one-off, weekly or monthly.</p></div>
+                    <div class="step reveal" style="--d:200ms"><div class="step__n">3</div><h3>Relax &amp; enjoy</h3><p>Our team arrives, works their magic and leaves everything spotless.</p></div>
                 </div>
             </div>
+        </section>
 
-            <!-- Form Side -->
-            <div class="py-20 px-4 sm:px-12 lg:px-20 flex flex-col justify-center bg-gray-50 lg:bg-white relative">
-                <!-- Decorative Circle -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-primary-light rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform translate-x-1/2 -translate-y-1/2"></div>
-                
-                <div class="relative z-10 max-w-lg w-full mx-auto lg:mx-0">
-                    <span class="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">Get Started</span>
-                    <h2 class="font-serif text-4xl font-bold text-gray-900 mb-4">Request Your Free Quote</h2>
-                    <p class="text-gray-600 mb-8">Fill out the form below and our team will get back to you within 2 hours with a custom estimate.</p>
-                    
-                    <form onsubmit="event.preventDefault(); alert('Quote request sent successfully! We will contact you soon.');" class="space-y-6">
-                        <div class="grid grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                                <input type="text" required class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition outline-none bg-white shadow-sm" placeholder="John" />
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                                <input type="text" required class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition outline-none bg-white shadow-sm" placeholder="Doe" />
-                            </div>
+        <!-- ===== PRICING ===== -->
+        <section class="section" id="pricing">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">Transparent pricing</span><h2>Simple plans, brilliant results</h2><p>No hidden fees. Choose the level of sparkle that fits your needs.</p></div>
+                <div class="pricing">
+                    <article class="plan reveal">
+                        <h3>Essential</h3><p>Perfect for regular upkeep.</p>
+                        <div class="price"><b>$89</b><span>/ visit</span></div>
+                        <ul><li><i class="ph-bold ph-check"></i>2 hours of cleaning</li><li><i class="ph-bold ph-check"></i>Dusting &amp; vacuuming</li><li><i class="ph-bold ph-check"></i>Kitchen surface wipe</li><li><i class="ph-bold ph-check"></i>Basic bathroom polish</li></ul>
+                        <a href="#contact" class="btn">Select plan</a>
+                    </article>
+                    <article class="plan plan--hot reveal" style="--d:100ms">
+                        <span class="plan__flag">Most popular</span>
+                        <h3>Signature Sparkle</h3><p>The complete refresh package.</p>
+                        <div class="price"><b>$149</b><span>/ visit</span></div>
+                        <ul><li><i class="ph-bold ph-check"></i>4 hours of deep cleaning</li><li><i class="ph-bold ph-check"></i>Deep kitchen &amp; appliance exterior</li><li><i class="ph-bold ph-check"></i>Detailed bathroom scrub</li><li><i class="ph-bold ph-check"></i>Baseboards &amp; window sills</li><li><i class="ph-bold ph-check"></i>Eco-friendly products included</li></ul>
+                        <a href="#contact" class="btn btn--gold">Select plan</a>
+                    </article>
+                    <article class="plan reveal" style="--d:200ms">
+                        <h3>Ultimate Deep</h3><p>For neglected spaces or move-ins.</p>
+                        <div class="price"><b>$249</b><span>/ visit</span></div>
+                        <ul><li><i class="ph-bold ph-check"></i>Top-to-bottom detail clean</li><li><i class="ph-bold ph-check"></i>Inside cabinets &amp; fridge</li><li><i class="ph-bold ph-check"></i>Carpet spot treatment</li><li><i class="ph-bold ph-check"></i>Upholstery vacuuming</li></ul>
+                        <a href="#contact" class="btn">Select plan</a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== GALLERY ===== -->
+        <section class="section" id="gallery" style="padding-top:0">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">Our work</span><h2>Spotless transformations</h2><p>A look at some of our recent cleaning commissions.</p></div>
+                <div class="gallery-wrap reveal" data-carousel data-auto>
+                    <div class="carousel">
+                        <figure class="shot"><img src="https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?auto=format&fit=crop&w=700&q=75" alt="Clean living room" loading="lazy" onerror="this.remove()"><figcaption>Living room deep clean</figcaption></figure>
+                        <figure class="shot"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=700&q=75" alt="Clean bathroom" loading="lazy" onerror="this.remove()"><figcaption>Bathroom sanitisation</figcaption></figure>
+                        <figure class="shot"><img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=700&q=75" alt="Clean kitchen" loading="lazy" onerror="this.remove()"><figcaption>Kitchen restoration</figcaption></figure>
+                        <figure class="shot"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=700&q=75" alt="Clean office" loading="lazy" onerror="this.remove()"><figcaption>Commercial office clean</figcaption></figure>
+                        <figure class="shot"><img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=700&q=75" alt="Clean house" loading="lazy" onerror="this.remove()"><figcaption>Move-in prep</figcaption></figure>
+                    </div>
+                    <div class="arrows"><button class="arrow" data-prev aria-label="Previous"><i class="ph ph-arrow-left"></i></button><button class="arrow" data-next aria-label="Next"><i class="ph ph-arrow-right"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== REVIEWS ===== -->
+        <section class="section reviews" id="reviews">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">Reviews</span><h2>Loved by homeowners &amp; businesses</h2></div>
+                <div class="reveal" data-carousel>
+                    <div class="carousel">
+                        <article class="review"><div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div><p>"I was blown away by the attention to detail. They didn't just clean the surfaces; they moved appliances and got into corners I hadn't seen in years. Truly a premium service!"</p><div class="who"><span class="av">SJ</span><div><b>Sarah Jenkins</b><span>Residential client</span></div></div></article>
+                        <article class="review"><div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div><p>"As an office manager, finding reliable cleaners is tough. SparkleClean has been a dream. The office smells fresh every morning and their eco-products don't aggravate allergies."</p><div class="who"><span class="av">MR</span><div><b>Michael Ross</b><span>Corporate manager</span></div></div></article>
+                        <article class="review"><div class="stars"><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i></div><p>"Booked a move-out clean and got my full deposit back. The team was friendly, quick and thorough. Already scheduled my next visit."</p><div class="who"><span class="av">AL</span><div><b>Amara Lewis</b><span>Move-out client</span></div></div></article>
+                    </div>
+                    <div class="arrows"><button class="arrow" data-prev aria-label="Previous"><i class="ph ph-arrow-left"></i></button><button class="arrow" data-next aria-label="Next"><i class="ph ph-arrow-right"></i></button></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CONTACT / ESTIMATOR ===== -->
+        <section class="section" id="contact">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">Get started</span><h2>Request your free quote</h2><p>Try the instant estimator, then send us the details — we reply within 2 hours.</p></div>
+                <div class="contact">
+                    <aside class="estimate reveal">
+                        <h3>Instant estimate</h3>
+                        <p>A quick ballpark price for your clean.</p>
+                        <label for="estType">Service type</label>
+                        <select id="estType"><option value="standard">Standard residential</option><option value="deep">Deep cleaning</option><option value="office">Commercial / office</option><option value="move">Move in / move out</option></select>
+                        <label for="estBeds">Bedrooms: <span id="estBedsOut">1</span></label>
+                        <input type="range" id="estBeds" min="1" max="6" value="1">
+                        <label for="estBaths">Bathrooms: <span id="estBathsOut">1</span></label>
+                        <input type="range" id="estBaths" min="1" max="5" value="1">
+                        <div class="out"><small>Estimated from</small><b id="estOut">$89</b></div>
+                        <p class="phone"><i class="ph-fill ph-phone-call"></i> 1 (800) SPARKLE</p>
+                    </aside>
+
+                    <form class="form reveal" style="--d:100ms" data-demo-form="Quote request received! (This is a concept demo, so nothing was actually sent.)">
+                        <h3>Tell us about your space</h3>
+                        <p>Fill in the form and our team will get back to you shortly.</p>
+                        <div class="row2">
+                            <div class="field"><label for="fn">First name</label><input id="fn" type="text" required placeholder="John"></div>
+                            <div class="field"><label for="ln">Last name</label><input id="ln" type="text" required placeholder="Doe"></div>
                         </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                            <input type="email" required class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition outline-none bg-white shadow-sm" placeholder="john@example.com" />
+                        <div class="row2">
+                            <div class="field"><label for="em">Email</label><input id="em" type="email" required placeholder="john@example.com"></div>
+                            <div class="field"><label for="sv">Service</label><select id="sv" required><option value="" disabled selected>Select a service</option><option>Standard residential</option><option>Deep cleaning</option><option>Commercial / office</option><option>Move in / move out</option></select></div>
                         </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Service Type</label>
-                            <div class="relative">
-                                <select required class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 transition outline-none bg-white shadow-sm appearance-none cursor-pointer">
-                                    <option value="" disabled selected>Select a service</option>
-                                    <option>Standard Residential</option>
-                                    <option>Deep Cleaning</option>
-                                    <option>Commercial / Office</option>
-                                    <option>Move In / Move Out</option>
-                                </select>
-                                <i class="ph ph-caret-down absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-500 pointer-events-none"></i>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="w-full btn-gold py-4 rounded-xl font-bold text-lg uppercase tracking-wide shadow-lg">
-                            Get My Free Quote
-                        </button>
-                        <p class="text-xs text-gray-500 text-center mt-4 flex items-center justify-center">
-                            <i class="ph-fill ph-lock-key mr-1"></i> Your information is safe and secure.
-                        </p>
+                        <div class="field"><label for="ms">Anything we should know?</label><textarea id="ms" placeholder="Pets, access instructions, special requests…"></textarea></div>
+                        <div class="form-note" role="status"></div>
+                        <button class="btn btn--gold btn--block" type="submit">Get my free quote</button>
+                        <p class="secure"><i class="ph-fill ph-lock-key"></i> Your information is safe and secure.</p>
                     </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer -->
-    <footer class="bg-primary-dark pt-20 pb-10 text-white relative overflow-hidden">
-        <!-- Abstract shape -->
-        <div class="absolute bottom-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-10 pointer-events-none"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                
-                <!-- Brand -->
-                <div class="lg:col-span-1">
-                    <a href="#hero" class="flex items-center space-x-2 mb-6">
-                        <div class="bg-white rounded-xl p-2">
-                            <i class="ph-fill ph-sparkle text-2xl text-primary"></i>
-                        </div>
-                        <span class="font-serif text-2xl font-bold tracking-tight">SparkleClean</span>
-                    </a>
-                    <p class="text-white mb-6 leading-relaxed">
-                        Setting the new standard for premium home and office cleaning. Experience the luxury of a spotless environment.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary-dark transition"><i class="ph-fill ph-instagram-logo text-xl"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary-dark transition"><i class="ph-fill ph-facebook-logo text-xl"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-secondary hover:text-primary-dark transition"><i class="ph-fill ph-twitter-logo text-xl"></i></a>
-                    </div>
-                </div>
-
-                <!-- Quick Links -->
-                <div>
-                    <h4 class="font-bold text-lg mb-6">Quick Links</h4>
-                    <ul class="space-y-4">
-                        <li><a href="#hero" class="text-white hover:text-secondary transition flex items-center"><i class="ph-bold ph-caret-right text-xs mr-2"></i> Home</a></li>
-                        <li><a href="#about" class="text-white hover:text-secondary transition flex items-center"><i class="ph-bold ph-caret-right text-xs mr-2"></i> About Us</a></li>
-                        <li><a href="#services" class="text-white hover:text-secondary transition flex items-center"><i class="ph-bold ph-caret-right text-xs mr-2"></i> Services</a></li>
-                        <li><a href="#pricing" class="text-white hover:text-secondary transition flex items-center"><i class="ph-bold ph-caret-right text-xs mr-2"></i> Pricing</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contact -->
-                <div>
-                    <h4 class="font-bold text-lg mb-6">Contact Us</h4>
-                    <ul class="space-y-4">
-                        <li class="flex items-start">
-                            <i class="ph-fill ph-map-pin text-secondary text-xl mr-3 mt-1"></i>
-                            <span class="text-white">123 Sparkle Avenue<br/>Suite 400<br/>New York, NY 10001</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ph-fill ph-phone text-secondary text-xl mr-3"></i>
-                            <span class="text-white">1 (800) SPARKLE</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="ph-fill ph-envelope text-secondary text-xl mr-3"></i>
-                            <span class="text-white">hello@sparkleclean.com</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Newsletter -->
-                <div>
-                    <h4 class="font-bold text-lg mb-6">Newsletter</h4>
-                    <p class="text-white mb-4">Subscribe for cleaning tips and exclusive seasonal discounts.</p>
-                    <form class="flex" onsubmit="event.preventDefault();">
-                        <input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-l-xl border-none focus:outline-none text-gray-800" />
-                        <button type="submit" class="bg-secondary text-primary-dark px-4 py-3 rounded-r-xl font-bold hover:bg-yellow-400 transition">
-                            <i class="ph-bold ph-paper-plane-right"></i>
-                        </button>
-                    </form>
+        <!-- ===== FAQ ===== -->
+        <section class="section" style="padding-top:0" aria-labelledby="faqT">
+            <div class="container">
+                <div class="head reveal"><span class="eyebrow">FAQ</span><h2 id="faqT">Good to know</h2></div>
+                <div class="faq reveal">
+                    <details><summary>Do I need to provide cleaning supplies? <i class="ph ph-plus"></i></summary><p>No. Our team brings all equipment and eco-friendly products. If you prefer specific products, just let us know.</p></details>
+                    <details><summary>Are your cleaners insured and vetted? <i class="ph ph-plus"></i></summary><p>Yes — every cleaner is background-checked, trained and covered by our insurance.</p></details>
+                    <details><summary>What if I'm not happy with the result? <i class="ph ph-plus"></i></summary><p>Tell us within 24 hours and we'll come back and re-clean the areas of concern at no extra cost.</p></details>
+                    <details><summary>Can I book recurring visits? <i class="ph ph-plus"></i></summary><p>Absolutely. Choose weekly, fortnightly or monthly visits and pause or change them any time.</p></details>
                 </div>
             </div>
+        </section>
+    </main>
 
-            <div class="border-t border-white/20 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-white">
-                <p>&copy; 2026 SparkleClean. All rights reserved.</p>
-                <div class="space-x-4 mt-4 md:mt-0">
-                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
-                    <a href="#" class="hover:text-white transition">Terms of Service</a>
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__grid">
+                <div>
+                    <a href="#hero" class="logo"><span class="logo__mark"><i class="ph-fill ph-sparkle"></i></span>SparkleClean</a>
+                    <p>Setting the new standard for premium home and office cleaning. Experience the luxury of a spotless environment.</p>
+                    <div class="social"><a href="#" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a><a href="#" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a><a href="#" aria-label="X"><i class="ph-fill ph-x-logo"></i></a></div>
                 </div>
+                <div><h4>Quick links</h4><ul><li><a href="#hero">Home</a></li><li><a href="#about">About us</a></li><li><a href="#services">Services</a></li><li><a href="#pricing">Pricing</a></li></ul></div>
+                <div><h4>Contact us</h4><ul><li><i class="ph-fill ph-map-pin"></i><span>123 Sparkle Avenue, Suite 400<br>New York, NY 10001</span></li><li><i class="ph-fill ph-phone"></i><span>1 (800) SPARKLE</span></li><li><i class="ph-fill ph-envelope"></i><span>hello@sparkleclean.com</span></li></ul></div>
+                <div><h4>Newsletter</h4><p>Cleaning tips and seasonal offers, straight to your inbox.</p><form class="news" onsubmit="return false"><input type="email" required placeholder="Email address" aria-label="Email address"><button type="submit" aria-label="Subscribe"><i class="ph-bold ph-paper-plane-right"></i></button></form></div>
             </div>
+            <div class="footer__bottom"><p>&copy; <span data-year>2026</span> SparkleClean. Concept website designed by ForgeLabs.</p><p>Privacy Policy &nbsp;·&nbsp; Terms of Service</p></div>
         </div>
     </footer>
 
-    <!-- Floating Action Button -->
-    <a href="#contact" class="fixed bottom-6 right-6 bg-primary hover:bg-primary-dark text-white w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(0,119,182,0.5)] transform hover:scale-110 transition duration-300 z-50 group">
-        <i class="ph-fill ph-chat-teardrop-dots text-3xl"></i>
-        <span class="absolute right-16 bg-gray-900 text-white text-sm py-1 px-3 rounded-lg opacity-0 group-hover:opacity-100 transition duration-300 whitespace-nowrap pointer-events-none">Chat with us</span>
-    </a>
+    <a href="#contact" class="fab" aria-label="Request a quote"><i class="ph-fill ph-chat-teardrop-dots"></i></a>
+    <a href="../../index.html" class="demo-pill"><img src="../../assets/images/logo.png" alt=""><span>Back to ForgeLabs<small>Concept demo</small></span><i class="ph ph-arrow-up-left"></i></a>
 
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script>
-        // Initialize Animations
-        AOS.init({ 
-            once: true, 
-            offset: 50,
-            duration: 800,
-            easing: 'ease-out-cubic'
-        });
-
-        // Navbar Scroll Effect
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile Menu Toggle
-        const mobileBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        mobileBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Initialize Swipers
-        const fullGallerySwiper = new Swiper('.fullGallerySwiper', { 
-            loop: true, 
-            slidesPerView: 1,
-            spaceBetween: 20,
-            breakpoints: {
-                640: { slidesPerView: 2, spaceBetween: 20 },
-                768: { slidesPerView: 3, spaceBetween: 30 },
-                1024: { slidesPerView: 3, spaceBetween: 30 },
-            },
-            pagination: { el: '.swiper-pagination', clickable: true }, 
-            autoplay: { delay: 4000, disableOnInteraction: false } 
-        });
-
-        const reviewSwiper = new Swiper('.reviewSwiper', { 
-            loop: true, 
-            pagination: { el: '.swiper-pagination', clickable: true }, 
-            autoplay: { delay: 6000, disableOnInteraction: false } 
-        });
-    </script>
+    <script src="../../assets/js/project.js"></script>
+    <script src="../../assets/js/cleaning.js"></script>
 </body>
+
 </html>

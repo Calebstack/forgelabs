@@ -1,510 +1,269 @@
-'use strict';
+/* ==========================================================================
+   ForgeLabs — main script
+   --------------------------------------------------------------------------
+   1  Helpers
+   2  Theme (dark / light)
+   3  Navigation: scroll state, progress bar, active link, drawer, back-to-top
+   4  Reveal on scroll + animated counters
+   5  Typing effect
+   6  Hero sparks canvas
+   7  Card spotlight + project tilt
+   8  Marquee
+   9  Contact form (Web3Forms)
+   ========================================================================== */
+(function () {
+  'use strict';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // ==========================================
-    // 1. Particle/Star Canvas Background
-    // ==========================================
-    const heroSection = document.getElementById('hero');
-    if (heroSection) {
-        const canvas = document.createElement('canvas');
-        canvas.style.position = 'absolute';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.width = '100%';
-        canvas.style.height = '100%';
-        canvas.style.pointerEvents = 'none'; // so it doesn't block clicks
-        
-        // Ensure hero section acts as a positioning root if it isn't already
-        if (window.getComputedStyle(heroSection).position === 'static') {
-            heroSection.style.position = 'relative';
-        }
-        
-        heroSection.insertBefore(canvas, heroSection.firstChild);
+  /* ---------- 1 · Helpers ------------------------------------------------ */
+  var $ = function (s, c) { return (c || document).querySelector(s); };
+  var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
+  var root = document.documentElement;
+  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-        const ctx = canvas.getContext('2d');
-        let width, height;
-        let particles = [];
-        const particleCount = 80;
+  function store(key, val) {
+    try { if (val === undefined) return localStorage.getItem(key); localStorage.setItem(key, val); } catch (e) { return null; }
+  }
+  var toastTimer;
+  function toast(msg) {
+    var el = $('#toast'); if (!el) return;
+    el.textContent = msg; el.classList.add('is-on');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { el.classList.remove('is-on'); }, 2600);
+  }
 
-        const resizeCanvas = () => {
-            width = heroSection.clientWidth;
-            height = heroSection.clientHeight;
-            canvas.width = width;
-            canvas.height = height;
-        };
-
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * width;
-                this.y = Math.random() * height;
-                this.size = Math.random() * 2 + 1; // 1 to 3px
-                this.speedX = (Math.random() - 0.5) * 0.5; // slow drift
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.2; // 0.2 to 0.7
-                this.color = `rgba(200, 150, 255, ${this.opacity})`; // Subtle purple/white
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                // Wrap around edges
-                if (this.x < 0) this.x = width;
-                if (this.x > width) this.x = 0;
-                if (this.y < 0) this.y = height;
-                if (this.y > height) this.y = 0;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        for (let i = 0; i < particleCount; i++) {
-            particles.push(new Particle());
-        }
-
-        const animateParticles = () => {
-            ctx.clearRect(0, 0, width, height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animateParticles);
-        };
-
-        animateParticles();
+  /* ---------- 2 · Theme -------------------------------------------------- */
+  var themeBtn = $('#themeToggle');
+  var themeMeta = $('meta[name="theme-color"]');
+  function applyTheme(t, persist) {
+    root.setAttribute('data-theme', t);
+    if (persist) store('forgelabs-theme', t);
+    if (themeMeta) themeMeta.setAttribute('content', t === 'light' ? '#f8f6ff' : '#07050f');
+    if (themeBtn) {
+      var icon = $('i', themeBtn);
+      icon.className = 'ph ' + (t === 'light' ? 'ph-moon' : 'ph-sun');
+      themeBtn.setAttribute('aria-label', t === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
     }
+  }
+  applyTheme(root.getAttribute('data-theme') === 'light' ? 'light' : 'dark', false);
+  if (themeBtn) themeBtn.addEventListener('click', function () {
+    applyTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true);
+  });
 
-    // ==========================================
-    // 2. Navbar Scroll Effect & 11. Scroll-to-Top
-    // ==========================================
-    const navbar = document.querySelector('.navbar');
-    const scrollTopBtn = document.querySelector('.scroll-top');
+  /* ---------- 3 · Navigation -------------------------------------------- */
+  var nav = $('#nav'), progress = $('#progress'), toTop = $('#toTop');
+  var burger = $('#burger'), drawer = $('#drawer');
 
-    const handleScroll = () => {
-        const scrollY = window.scrollY;
+  function onScroll() {
+    var y = window.scrollY || window.pageYOffset;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    nav.classList.toggle('is-scrolled', y > 24);
+    progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(y / max, 1) : 0) + ')';
+    toTop.classList.toggle('is-visible', y > 700);
+  }
+  var ticking = false;
+  window.addEventListener('scroll', function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(function () { onScroll(); ticking = false; }); }
+  }, { passive: true });
+  onScroll();
+  toTop.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }); });
 
-        // Navbar effect
-        if (navbar) {
-            if (scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        }
+  // Active link (desktop + drawer)
+  var navLinks = $$('.nav__link, .drawer__link');
+  var tracked = ['hero', 'about', 'services', 'portfolio', 'contact'];
+  function setActive(id) {
+    navLinks.forEach(function (a) { a.classList.toggle('is-active', a.getAttribute('href') === '#' + id); });
+  }
+  if ('IntersectionObserver' in window) {
+    var sections = tracked.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) setActive(e.target.id); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach(function (s) { spy.observe(s); });
+  }
 
-        // Scroll to top button visibility
-        if (scrollTopBtn) {
-            if (scrollY > 500) {
-                scrollTopBtn.classList.add('visible');
-            } else {
-                scrollTopBtn.classList.remove('visible');
-            }
-        }
-    };
+  // Drawer
+  function setDrawer(open) {
+    drawer.classList.toggle('is-open', open);
+    drawer.setAttribute('aria-hidden', String(!open));
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  burger.addEventListener('click', function () { setDrawer(!drawer.classList.contains('is-open')); });
+  $$('a', drawer).forEach(function (a) { a.addEventListener('click', function () { setDrawer(false); }); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && drawer.classList.contains('is-open')) { setDrawer(false); burger.focus(); } });
+  window.addEventListener('resize', function () { if (window.innerWidth > 1060 && drawer.classList.contains('is-open')) setDrawer(false); });
 
-    // Debounce wrapper isn't strictly necessary for these lightweight toggles, 
-    // but using passive: true helps scrolling performance.
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Trigger on load
-
-    if (scrollTopBtn) {
-        scrollTopBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        });
+  /* ---------- 4 · Reveal + counters ------------------------------------- */
+  function animateCounter(el) {
+    var target = parseFloat(el.getAttribute('data-target')) || 0;
+    if (reduceMotion) { el.textContent = target; return; }
+    var start = null, dur = 1600;
+    function step(ts) {
+      if (!start) start = ts;
+      var p = Math.min((ts - start) / dur, 1);
+      el.textContent = Math.round(target * (1 - Math.pow(1 - p, 4)));
+      if (p < 1) requestAnimationFrame(step);
     }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries, obs) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        $$('.counter', e.target).forEach(animateCounter);
+        obs.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+    $$('.reveal').forEach(function (el) { io.observe(el); });
+  } else {
+    $$('.reveal').forEach(function (el) { el.classList.add('is-in'); });
+    $$('.counter').forEach(animateCounter);
+  }
 
-    // ==========================================
-    // 3. Mobile Navigation
-    // ==========================================
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelectorAll('.navbar a');
+  /* ---------- 5 · Typing effect ----------------------------------------- */
+  var typedEl = $('#typed');
+  if (typedEl && !reduceMotion) {
+    var phrases = ['websites that convert', 'apps people love to use', 'brands that stand out', 'cloud setups that scale', 'ideas that become real'];
+    var pi = 0, ci = phrases[0].length, deleting = true;
+    (function tick() {
+      var word = phrases[pi], delay;
+      if (deleting) { ci--; delay = 36; } else { ci++; delay = 70; }
+      typedEl.textContent = word.slice(0, ci);
+      if (!deleting && ci === word.length) { deleting = true; delay = 1700; }
+      else if (deleting && ci === 0) { deleting = false; pi = (pi + 1) % phrases.length; delay = 340; }
+      setTimeout(tick, delay);
+    })();
+  }
 
-    if (navToggle && navbar) {
-        navToggle.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navbar.classList.toggle('nav-active');
-        });
-
-        // Close menu on link click
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navbar.classList.remove('nav-active');
-            });
-        });
-
-        // Close menu on click outside
-        document.addEventListener('click', (e) => {
-            if (!navbar.contains(e.target)) {
-                navbar.classList.remove('nav-active');
-            }
-        });
+  /* ---------- 6 · Hero sparks ------------------------------------------- */
+  var canvas = $('#sparks');
+  if (canvas && !reduceMotion) {
+    var ctx = canvas.getContext('2d'), W = 0, H = 0, dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var sparks = [], running = false, raf;
+    var COUNT = window.innerWidth < 760 ? 26 : 56;
+    function resize() {
+      var r = canvas.getBoundingClientRect();
+      W = r.width; H = r.height;
+      canvas.width = W * dpr; canvas.height = H * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     }
+    function make(initial) {
+      return {
+        x: Math.random() * W,
+        y: initial ? Math.random() * H : H + 10,
+        r: Math.random() * 1.9 + .5,
+        vy: Math.random() * .55 + .18,
+        vx: (Math.random() - .5) * .25,
+        a: Math.random() * .6 + .25,
+        hue: Math.random() < .2 ? 32 : 268 + Math.random() * 40,
+        ph: Math.random() * 6.28
+      };
+    }
+    function init() { resize(); sparks = []; for (var i = 0; i < COUNT; i++) sparks.push(make(true)); }
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      var light = root.getAttribute('data-theme') === 'light';
+      for (var i = 0; i < sparks.length; i++) {
+        var s = sparks[i];
+        s.y -= s.vy; s.x += s.vx + Math.sin(s.ph += .01) * .15;
+        if (s.y < -10) sparks[i] = make(false);
+        var fade = Math.min(1, (H - s.y) / (H * .25), s.y / (H * .3) + .2);
+        var lum = light ? 48 : 72;
+        ctx.beginPath();
+        ctx.fillStyle = 'hsla(' + s.hue + ',90%,' + lum + '%,' + (s.a * fade * (light ? .75 : 1)) + ')';
+        ctx.shadowColor = 'hsla(' + s.hue + ',95%,65%,.9)';
+        ctx.shadowBlur = light ? 4 : 10;
+        ctx.arc(s.x, s.y, s.r, 0, 6.283);
+        ctx.fill();
+      }
+      raf = requestAnimationFrame(draw);
+    }
+    function start() { if (!running) { running = true; raf = requestAnimationFrame(draw); } }
+    function stop() { running = false; cancelAnimationFrame(raf); }
+    init();
+    window.addEventListener('resize', function () { init(); });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (e) { e[0].isIntersecting ? start() : stop(); }).observe(canvas);
+    } else { start(); }
+  }
 
-    // ==========================================
-    // 4. Smooth Scroll
-    // ==========================================
-    const smoothScrollLinks = document.querySelectorAll('a[href^="#"]:not([href="#"])');
-    const headerHeight = 70; // fixed navbar height ~70px
-
-    smoothScrollLinks.forEach(link => {
-        link.addEventListener('click', function (e) {
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-
-            if (targetElement) {
-                e.preventDefault();
-                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - headerHeight;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+  /* ---------- 7 · Spotlight + tilt -------------------------------------- */
+  if (finePointer) {
+    $$('.card').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+      });
     });
-
-    // ==========================================
-    // 5. Active Nav Link Highlighting
-    // ==========================================
-    const sections = document.querySelectorAll('section[id]');
-    
-    const highlightActiveNav = () => {
-        const scrollY = window.pageYOffset;
-
-        sections.forEach(current => {
-            const sectionHeight = current.offsetHeight;
-            const sectionTop = current.offsetTop - headerHeight - 10;
-            const sectionId = current.getAttribute('id');
-            
-            const correspondingLink = document.querySelector(`.navbar a[href="#${sectionId}"]`);
-
-            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-                if (correspondingLink) {
-                    correspondingLink.classList.add('active');
-                }
-            } else {
-                if (correspondingLink) {
-                    correspondingLink.classList.remove('active');
-                }
-            }
+    if (!reduceMotion) {
+      $$('.project').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          var x = (e.clientX - r.left) / r.width - .5, y = (e.clientY - r.top) / r.height - .5;
+          card.style.transform = 'perspective(1000px) rotateX(' + (-y * 4) + 'deg) rotateY(' + (x * 5) + 'deg) translateY(-6px)';
         });
-    };
-
-    window.addEventListener('scroll', highlightActiveNav, { passive: true });
-
-    // ==========================================
-    // 6. Typing Animation
-    // ==========================================
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        const phrases = [
-            'Innovative Digital Solutions',
-            'Cutting-Edge Technology',
-            'Forging the Future',
-            'Beautiful Digital Experiences'
-        ];
-        let phraseIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        const type = () => {
-            const currentPhrase = phrases[phraseIndex];
-
-            if (isDeleting) {
-                typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            let typingSpeed = 100; // default typing speed
-            if (isDeleting) {
-                typingSpeed = 50; // deleting speed
-            }
-
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typingSpeed = 2000; // pause at end
-                isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typingSpeed = 500; // pause before typing next
-            }
-
-            setTimeout(type, typingSpeed);
-        };
-
-        type();
+        card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+      });
     }
+  }
 
-    // ==========================================
-    // 7. Scroll Reveal Animations
-    // ==========================================
-    const revealElements = document.querySelectorAll('.reveal');
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const el = entry.target;
-                const delay = el.getAttribute('data-delay') || 0;
-                
-                setTimeout(() => {
-                    el.classList.add('animate');
-                }, delay);
-
-                observer.unobserve(el);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    revealElements.forEach(el => revealObserver.observe(el));
-
-    // ==========================================
-    // 8. Counter Animation (About Section Stats)
-    // ==========================================
-    const counterElements = document.querySelectorAll('.counter');
-
-    const animateCounter = (el) => {
-        const target = +el.getAttribute('data-target');
-        const duration = 2000; // 2 seconds
-        const startTime = performance.now();
-
-        // Easing function: easeOutQuart
-        const easeOutQuart = t => 1 - (--t) * t * t * t;
-
-        const updateCounter = (currentTime) => {
-            const elapsed = currentTime - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const easedProgress = easeOutQuart(progress);
-
-            const currentVal = Math.floor(easedProgress * target);
-            el.textContent = currentVal;
-
-            if (progress < 1) {
-                requestAnimationFrame(updateCounter);
-            } else {
-                el.textContent = target;
-            }
-        };
-
-        requestAnimationFrame(updateCounter);
-    };
-
-    const counterObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                animateCounter(entry.target);
-                observer.unobserve(entry.target);
-            }
-        });
-    }, { threshold: 0.15 });
-
-    counterElements.forEach(el => counterObserver.observe(el));
-
-    // ==========================================
-    // 9. Portfolio Filter
-    // ==========================================
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const projectCards = document.querySelectorAll('[data-category]');
-
-    if (filterBtns.length > 0 && projectCards.length > 0) {
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                // Remove active class from all buttons
-                filterBtns.forEach(b => b.classList.remove('active'));
-                // Add active to clicked button
-                btn.classList.add('active');
-
-                const filterValue = btn.getAttribute('data-filter');
-
-                projectCards.forEach(card => {
-                    const category = card.getAttribute('data-category');
-                    if (filterValue === 'all' || filterValue === category) {
-                        card.classList.remove('hidden');
-                    } else {
-                        card.classList.add('hidden');
-                    }
-                });
-            });
-        });
+  /* ---------- 8 · Marquee (duplicate group for seamless loop) ------------ */
+  var track = $('#marquee');
+  if (track) {
+    var group = $('.marquee__group', track);
+    // repeat until a group is wider than the viewport, then duplicate once
+    while (group.scrollWidth < window.innerWidth * 1.1 && group.children.length < 60) {
+      Array.prototype.slice.call(group.children, 0, 6).forEach(function (n) { group.appendChild(n.cloneNode(true)); });
     }
+    track.appendChild(group.cloneNode(true));
+  }
 
-    // ==========================================
-    // 10. Contact Form (Web3Forms AJAX Submission)
-    // ==========================================
-    const contactForm = document.querySelector('#contactForm');
-
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            let isValid = true;
-            const requiredInputs = contactForm.querySelectorAll('[required]');
-            
-            requiredInputs.forEach(input => {
-                if (!input.value.trim()) {
-                    isValid = false;
-                    input.classList.add('error');
-                } else {
-                    input.classList.remove('error');
-                }
-            });
-
-            if (isValid) {
-                const submitBtn = contactForm.querySelector('button[type="submit"]');
-                const originalBtnText = submitBtn.innerHTML;
-                
-                // Show loading state
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="ph ph-circle-notch spinner animate-spin"></i> Sending...';
-
-                // Helper to remove any existing alert message
-                const removeAlert = () => {
-                    const existingAlert = contactForm.querySelector('.form-alert-msg');
-                    if (existingAlert) {
-                        existingAlert.remove();
-                    }
-                };
-
-                removeAlert();
-
-                const formData = new FormData(contactForm);
-                const json = JSON.stringify(Object.fromEntries(formData));
-
-                fetch('https://api.web3forms.com/submit', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/json'
-                    },
-                    body: json
-                })
-                .then(async (response) => {
-                    let result = await response.json();
-                    if (response.status == 200) {
-                        // Success message
-                        const successMsg = document.createElement('div');
-                        successMsg.className = 'form-alert-msg form-success-msg';
-                        successMsg.style.color = '#10b981'; // Emerald/Green text
-                        successMsg.style.marginTop = '15px';
-                        successMsg.style.padding = '10px 15px';
-                        successMsg.style.border = '1px solid rgba(16, 185, 129, 0.2)';
-                        successMsg.style.borderRadius = '8px';
-                        successMsg.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
-                        successMsg.style.fontSize = '0.9rem';
-                        successMsg.style.display = 'flex';
-                        successMsg.style.alignItems = 'center';
-                        successMsg.style.gap = '8px';
-                        successMsg.innerHTML = '<i class="ph ph-check-circle"></i> Message sent successfully!';
-                        contactForm.appendChild(successMsg);
-                        
-                        contactForm.reset();
-                    } else {
-                        // API failure
-                        console.error(result);
-                        const errorMsg = document.createElement('div');
-                        errorMsg.className = 'form-alert-msg form-error-msg';
-                        errorMsg.style.color = '#ef4444'; // Red text
-                        errorMsg.style.marginTop = '15px';
-                        errorMsg.style.padding = '10px 15px';
-                        errorMsg.style.border = '1px solid rgba(239, 68, 68, 0.2)';
-                        errorMsg.style.borderRadius = '8px';
-                        errorMsg.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                        errorMsg.style.fontSize = '0.9rem';
-                        errorMsg.style.display = 'flex';
-                        errorMsg.style.alignItems = 'center';
-                        errorMsg.style.gap = '8px';
-                        errorMsg.innerHTML = `<i class="ph ph-warning-circle"></i> Error: ${result.message || 'Something went wrong.'}`;
-                        contactForm.appendChild(errorMsg);
-                    }
-                })
-                .catch((error) => {
-                    // Network error
-                    console.error(error);
-                    const errorMsg = document.createElement('div');
-                    errorMsg.className = 'form-alert-msg form-error-msg';
-                    errorMsg.style.color = '#ef4444';
-                    errorMsg.style.marginTop = '15px';
-                    errorMsg.style.padding = '10px 15px';
-                    errorMsg.style.border = '1px solid rgba(239, 68, 68, 0.2)';
-                    errorMsg.style.borderRadius = '8px';
-                    errorMsg.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                    errorMsg.style.fontSize = '0.9rem';
-                    errorMsg.style.display = 'flex';
-                    errorMsg.style.alignItems = 'center';
-                    errorMsg.style.gap = '8px';
-                    errorMsg.innerHTML = '<i class="ph ph-warning-circle"></i> Network error. Please try again later.';
-                    contactForm.appendChild(errorMsg);
-                })
-                .then(() => {
-                    // Reset button state
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = originalBtnText;
-
-                    // Automatically clear the success/error message after 5 seconds
-                    setTimeout(() => {
-                        removeAlert();
-                    }, 5000);
-                });
-            }
-        });
+  /* ---------- 9 · Contact form ------------------------------------------ */
+  var form = $('#contactForm');
+  if (form) {
+    var btn = $('#formBtn'), status = $('#formStatus');
+    var label = btn.innerHTML;
+    function show(type, icon, msg) {
+      status.className = 'form__status is-' + type;
+      status.innerHTML = '<i class="ph-fill ' + icon + '" aria-hidden="true"></i><span>' + msg + '</span>';
     }
-});
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+      if (form.botcheck && form.botcheck.checked) return;
+      btn.disabled = true;
+      btn.innerHTML = '<i class="ph ph-circle-notch spin" aria-hidden="true"></i> Sending…';
+      status.className = 'form__status';
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json(); })
+        .then(function (res) {
+          if (res.success) {
+            show('ok', 'ph-check-circle', 'Message sent! Thanks for reaching out — we\'ll get back to you soon.');
+            form.reset();
+            toast('Message sent ✓');
+          } else {
+            show('err', 'ph-warning-circle', res.message || 'Something went wrong. Please try again or email us directly.');
+          }
+        })
+        .catch(function () {
+          show('err', 'ph-warning-circle', 'Network error. Please check your connection or email contact.forgelabs@gmail.com.');
+        })
+        .then(function () { btn.disabled = false; btn.innerHTML = label; });
+    });
+  }
 
-// ==========================================
-// 11. Theme Toggle
-// ==========================================
-document.addEventListener('DOMContentLoaded', () => {
-    const themeToggle = document.getElementById('themeToggle');
-    const body = document.body;
-
-    // One-time migration: clear any old saved theme so light is the fresh default.
-    // Remove this block after first deployment if you want to persist user choices.
-    if (!localStorage.getItem('fl_theme_v2')) {
-        localStorage.removeItem('theme');
-        localStorage.setItem('fl_theme_v2', '1');
-    }
-
-    // Light mode is the CSS default — only apply dark-mode class if user chose it.
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        body.classList.add('dark-mode');
-        if (themeToggle) {
-            themeToggle.innerHTML = '<i class="ph ph-sun"></i>';
-        }
-    } else {
-        // Default: light (no class needed). Show moon icon to switch to dark.
-        localStorage.removeItem('theme'); // clear any stale 'light' value
-        if (themeToggle) {
-            themeToggle.innerHTML = '<i class="ph ph-moon"></i>';
-        }
-    }
-
-    if (themeToggle) {
-        themeToggle.addEventListener('click', () => {
-            if (body.classList.contains('dark-mode')) {
-                // Switch TO light
-                body.classList.remove('dark-mode');
-                themeToggle.innerHTML = '<i class="ph ph-moon"></i>';
-                localStorage.removeItem('theme'); // no entry = light (default)
-            } else {
-                // Switch TO dark
-                body.classList.add('dark-mode');
-                themeToggle.innerHTML = '<i class="ph ph-sun"></i>';
-                localStorage.setItem('theme', 'dark');
-            }
-        });
-    }
-});
+  /* ---------- Footer year ------------------------------------------------ */
+  var yr = $('#year'); if (yr) yr.textContent = new Date().getFullYear();
+})();
