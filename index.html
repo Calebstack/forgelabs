@@ -1,320 +1,537 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="ForgeLabs — Forging innovative digital solutions. We build cutting-edge software, web applications, and digital experiences that transform ideas into reality.">
-    <meta name="keywords"
-        content="ForgeLabs, software development, web development, digital solutions, technology, startup">
+    <title>ForgeLabs — Forging the Future | Web, UI/UX & Cloud Studio</title>
+    <meta name="description" content="ForgeLabs is a digital studio forging fast, beautiful websites, web applications and digital experiences that turn ideas into reality.">
+    <meta name="keywords" content="ForgeLabs, web development, UI/UX design, cloud solutions, web applications, digital studio">
     <meta name="author" content="ForgeLabs">
-    <title>ForgeLabs — Forging the Future</title>
+    <meta name="theme-color" content="#07050f">
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/images/logo.png">
+    <!-- Open Graph / Twitter (swap the relative image path for your full https:// URL once the domain is live) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ForgeLabs — Forging the Future">
+    <meta property="og:description" content="We build fast, beautiful websites and web apps that turn ideas into reality.">
+    <meta property="og:image" content="assets/images/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <!-- Icons -->
+    <link rel="icon" type="image/png" href="assets/images/icon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="assets/images/apple-touch-icon.png">
 
-    <!-- Phosphor Icons -->
-    <script src="https://unpkg.com/@phosphor-icons/web@2.0.3"></script>
+    <!-- Apply saved theme before first paint (no flash) -->
+    <script>
+        (function () {
+            var d = document.documentElement;
+            d.classList.add('js');
+            try {
+                var t = localStorage.getItem('forgelabs-theme');
+                if (t === 'light' || t === 'dark') d.setAttribute('data-theme', t);
+            } catch (e) {}
+            if (d.getAttribute('data-theme') === 'light') {
+                var m = document.querySelector('meta[name="theme-color"]');
+                if (m) m.setAttribute('content', '#f8f6ff');
+            }
+        })();
+    </script>
 
-    <!-- Stylesheet -->
+    <!-- Styles (fonts + icons are self-hosted) -->
+    <link rel="preload" href="assets/fonts/unbounded-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="assets/fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="assets/css/fonts.css">
+    <link rel="stylesheet" href="assets/vendor/phosphor/regular.css">
+    <link rel="stylesheet" href="assets/vendor/phosphor/fill.css">
     <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
-
-    <!-- ==================== BACKGROUND ANIMATION ==================== -->
-    <div class="bg-animation">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-        <div class="orb orb-3"></div>
-    </div>
+    <a href="#main" class="skip">Skip to content</a>
+    <div class="progress" id="progress" aria-hidden="true"></div>
 
     <!-- ==================== NAVIGATION ==================== -->
-    <nav class="navbar" id="navbar">
-        <div class="container nav-container">
-            <a href="#hero" class="nav-logo">
-                <img src="assets/images/logo.png" alt="ForgeLabs Logo" class="nav-logo-img">
-                <span class="nav-logo-text">FORGE<span class="accent">LABS</span></span>
+    <nav class="nav" id="nav" aria-label="Main">
+        <div class="container nav__inner">
+            <a href="#hero" class="brand" aria-label="ForgeLabs — home">
+                <span class="brand__mark"><img src="assets/images/logo.png" alt="" width="42" height="42"></span>
+                <span class="brand__name">FORGE<b>LABS</b></span>
             </a>
 
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#hero" class="nav-link active">Home</a></li>
-                <li><a href="#about" class="nav-link">About</a></li>
-                <li><a href="#services" class="nav-link">Services</a></li>
-                <li><a href="#portfolio" class="nav-link">Portfolio</a></li>
-                <li><a href="#contact" class="nav-link">Contact</a></li>
-                <li>
-                    <button id="themeToggle" class="theme-toggle" aria-label="Toggle theme">
-                        <i class="ph ph-sun"></i>
-                    </button>
-                </li>
-            </ul>
+            <div class="nav__links" id="navLinks">
+                <a href="#hero" class="nav__link is-active">Home</a>
+                <a href="#about" class="nav__link">About</a>
+                <a href="#services" class="nav__link">Services</a>
+                <a href="#portfolio" class="nav__link">Portfolio</a>
+                <a href="#contact" class="nav__link">Contact</a>
+            </div>
 
-            <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
-                <span class="hamburger"></span>
-            </button>
+            <div class="nav__actions">
+                <button class="icon-btn theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode">
+                    <i class="ph ph-sun" aria-hidden="true"></i>
+                </button>
+                <a href="#contact" class="btn btn--primary nav__cta">Start a project <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+                <button class="icon-btn burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer"><span></span></button>
+            </div>
         </div>
     </nav>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section id="hero" class="hero">
-        <div class="hero-content">
-            <img src="assets/images/logo.png" alt="ForgeLabs" class="hero-logo reveal">
-            <h1 class="hero-title reveal" data-delay="200">
-                Forging the <span class="gradient-text">Future</span>
-            </h1>
-            <p class="hero-subtitle reveal" data-delay="400">
-                <span class="typing-text"></span><span class="cursor">|</span>
-            </p>
-            <div class="hero-buttons reveal" data-delay="600">
-                <a href="#portfolio" class="btn btn-primary">
-                    <i class="ph ph-rocket-launch"></i> View Our Work
-                </a>
-                <a href="#contact" class="btn btn-secondary">
-                    <i class="ph ph-envelope-simple"></i> Get in Touch
-                </a>
+    <!-- Mobile drawer -->
+    <div class="drawer" id="drawer" aria-hidden="true">
+        <div class="drawer__links">
+            <a href="#hero" class="drawer__link is-active" style="--i:0">Home <small>01</small></a>
+            <a href="#about" class="drawer__link" style="--i:1">About <small>02</small></a>
+            <a href="#services" class="drawer__link" style="--i:2">Services <small>03</small></a>
+            <a href="#portfolio" class="drawer__link" style="--i:3">Portfolio <small>04</small></a>
+            <a href="#contact" class="drawer__link" style="--i:4">Contact <small>05</small></a>
+        </div>
+        <div class="drawer__foot">
+            <a href="#contact" class="btn btn--primary btn--block">Start a project <i class="ph ph-arrow-right" aria-hidden="true"></i></a>
+            <div class="drawer__social">
+                <a class="icon-btn" href="mailto:contact.forgelabs@gmail.com" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+                <a class="icon-btn" href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61593440285981&mibextid=ZbWKwL" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                <a class="icon-btn" href="https://www.tiktok.com/@forgelabs.co?_r=1&_t=ZS-994CUwW7IBD" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
             </div>
         </div>
-        <div class="scroll-indicator">
-            <a href="#about" aria-label="Scroll down">
-                <i class="ph ph-caret-double-down"></i>
-            </a>
+    </div>
+
+    <main id="main">
+
+        <!-- ==================== HERO ==================== -->
+        <header class="hero" id="hero">
+            <div class="hero__bg" aria-hidden="true">
+                <span class="grid"></span>
+                <span class="orb orb--1"></span>
+                <span class="orb orb--2"></span>
+                <span class="orb orb--3"></span>
+            </div>
+            <canvas class="sparks" id="sparks" aria-hidden="true"></canvas>
+
+            <div class="container hero__grid">
+                <div class="hero__copy">
+                    <p class="pill reveal"><span class="dot"></span> Now taking new projects</p>
+                    <h1 class="reveal" style="--d:80ms">
+                        <span class="line">Forging the</span>
+                        <span class="line"><span class="grad">Future</span></span>
+                    </h1>
+                    <p class="hero__type reveal" style="--d:160ms" aria-live="polite">We build <span id="typed">websites that convert</span><span class="caret" aria-hidden="true"></span></p>
+                    <p class="hero__lead reveal" style="--d:240ms">
+                        ForgeLabs is a small team of designers and developers turning ideas into fast, beautiful, reliable digital products — from first sketch to launch day.
+                    </p>
+                    <div class="hero__cta reveal" style="--d:320ms">
+                        <a href="#portfolio" class="btn btn--primary"><i class="ph ph-rocket-launch" aria-hidden="true"></i> View our work</a>
+                        <a href="#contact" class="btn btn--ghost"><i class="ph ph-envelope-simple" aria-hidden="true"></i> Get in touch</a>
+                    </div>
+                    <ul class="hero__facts reveal" style="--d:400ms">
+                        <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Design + code under one roof</li>
+                        <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Mobile-first, fast builds</li>
+                        <li><i class="ph-fill ph-check-circle" aria-hidden="true"></i> Clear, honest communication</li>
+                    </ul>
+                </div>
+
+                <div class="hero__visual reveal" style="--d:200ms" aria-hidden="true">
+                    <div class="stage">
+                        <span class="stage__ring"></span>
+                        <span class="stage__ring stage__ring--2"></span>
+                        <div class="stage__card"><img src="assets/images/logo-full.png" alt="" width="1536" height="1024"></div>
+                        <span class="chip chip--a"><i class="ph ph-code"></i> Web apps</span>
+                        <span class="chip chip--b"><i class="ph ph-figma-logo"></i> UI/UX</span>
+                        <span class="chip chip--c"><i class="ph ph-cloud"></i> Cloud</span>
+                    </div>
+                </div>
+            </div>
+
+            <a class="scroll-cue" href="#about" aria-label="Scroll to About"><span></span>Scroll</a>
+        </header>
+
+        <!-- ==================== MARQUEE ==================== -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee__track" id="marquee">
+                <div class="marquee__group">
+                    <span>Web Development</span><span>UI/UX Design</span><span>Cloud Solutions</span><span>Booking Systems</span><span>Brand &amp; Graphics</span><span>Ongoing Support</span>
+                </div>
+            </div>
         </div>
-    </section>
 
-    <!-- ==================== ABOUT SECTION ==================== -->
-    <section id="about" class="section about">
-        <div class="container">
-            <h2 class="section-title reveal">About <span class="gradient-text">Us</span></h2>
-            <p class="section-subtitle reveal" data-delay="100">Who we are and what drives us forward</p>
+        <!-- ==================== ABOUT ==================== -->
+        <section id="about" class="section">
+            <div class="container">
+                <div class="head reveal">
+                    <span class="eyebrow">About us</span>
+                    <h2>Who we are and what <span class="grad">drives us</span> forward</h2>
+                </div>
 
-            <div class="about-content">
-                <div class="about-text reveal" data-delay="200">
-                    <h3>We are <span class="accent">ForgeLabs</span></h3>
-                    <p>
-                        We're a passionate team of innovators, designers, and developers on a mission to
-                        forge groundbreaking digital solutions. At ForgeLabs, we believe that great technology
-                        is born at the intersection of creativity and precision engineering.
-                    </p>
-                    <p>
-                        From concept to deployment, we craft every project with meticulous attention to detail,
-                        leveraging cutting-edge technologies to build products that don't just meet expectations
-                        — they redefine them. Our lab is where bold ideas are tested, refined, and forged into reality.
-                    </p>
-                    <a href="#services" class="btn btn-primary about-btn" style="margin-top: 1.5rem;">
-                        <i class="ph ph-lightning"></i> What We Do
+                <div class="about__grid">
+                    <article class="card about__story reveal">
+                        <h3>We are <span class="grad">ForgeLabs</span></h3>
+                        <p>We're a passionate team of innovators, designers and developers on a mission to forge groundbreaking digital solutions. We believe great technology is born where creativity meets precision engineering.</p>
+                        <p>From concept to deployment, we craft every project with meticulous attention to detail, using modern technologies to build products that don't just meet expectations — they redefine them. Our lab is where bold ideas are tested, refined and forged into reality.</p>
+                        <a href="#services" class="btn btn--primary"><i class="ph ph-lightning" aria-hidden="true"></i> What we do</a>
+                    </article>
+
+                    <div class="values">
+                        <article class="card value reveal" style="--d:80ms">
+                            <span class="ico"><i class="ph ph-lightbulb-filament"></i></span>
+                            <h4>Innovation</h4>
+                            <p>Pushing boundaries with creative solutions.</p>
+                        </article>
+                        <article class="card value reveal" style="--d:160ms">
+                            <span class="ico"><i class="ph ph-shield-checkered"></i></span>
+                            <h4>Quality</h4>
+                            <p>Precision-engineered to perfection.</p>
+                        </article>
+                        <article class="card value reveal" style="--d:240ms">
+                            <span class="ico"><i class="ph ph-handshake"></i></span>
+                            <h4>Collaboration</h4>
+                            <p>Your vision, our expertise.</p>
+                        </article>
+                        <article class="card value reveal" style="--d:320ms">
+                            <span class="ico"><i class="ph ph-rocket"></i></span>
+                            <h4>Speed</h4>
+                            <p>Rapid delivery without compromise.</p>
+                        </article>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="card stat reveal">
+                        <div class="stat__num grad"><span class="counter" data-target="20">0</span><small>+</small></div>
+                        <p>Projects completed</p>
+                    </div>
+                    <div class="card stat reveal" style="--d:80ms">
+                        <div class="stat__num grad"><span class="counter" data-target="10">0</span><small>+</small></div>
+                        <p>Happy clients</p>
+                    </div>
+                    <div class="card stat reveal" style="--d:160ms">
+                        <div class="stat__num grad"><span class="counter" data-target="100">0</span><small>%</small></div>
+                        <p>Client satisfaction</p>
+                    </div>
+                    <div class="card stat reveal" style="--d:240ms">
+                        <div class="stat__num grad"><span class="counter" data-target="4">0</span></div>
+                        <p>Live demo sites below</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== SERVICES ==================== -->
+        <section id="services" class="section section--alt">
+            <div class="container">
+                <div class="head head--center reveal">
+                    <span class="eyebrow">Our services</span>
+                    <h2>What we <span class="grad">forge</span> in our lab</h2>
+                    <p>Everything you need to launch, grow and look great online — handled by one team.</p>
+                </div>
+
+                <div class="services">
+                    <article class="card service reveal">
+                        <div class="service__top"><span class="ico"><i class="ph ph-code"></i></span><span class="service__no">01</span></div>
+                        <h3>Web Development</h3>
+                        <p>Custom websites and web applications built with modern frameworks, optimised for performance, scalability and stunning user experiences.</p>
+                        <ul class="service__tags"><li>Responsive</li><li>SEO-ready</li><li>Fast</li></ul>
+                    </article>
+                    <article class="card service reveal" style="--d:80ms">
+                        <div class="service__top"><span class="ico"><i class="ph ph-figma-logo"></i></span><span class="service__no">02</span></div>
+                        <h3>UI/UX Design</h3>
+                        <p>Beautiful, intuitive interfaces crafted through research-driven design, prototyping and iterative user testing.</p>
+                        <ul class="service__tags"><li>Wireframes</li><li>Prototypes</li><li>Design systems</li></ul>
+                    </article>
+                    <article class="card service reveal" style="--d:160ms">
+                        <div class="service__top"><span class="ico"><i class="ph ph-cloud"></i></span><span class="service__no">03</span></div>
+                        <h3>Cloud Solutions</h3>
+                        <p>Scalable cloud infrastructure, deployment pipelines and serverless architectures that keep your products running smoothly.</p>
+                        <ul class="service__tags"><li>Hosting</li><li>CI/CD</li><li>Scaling</li></ul>
+                    </article>
+                    <article class="card service reveal">
+                        <div class="service__top"><span class="ico"><i class="ph ph-calendar-check"></i></span><span class="service__no">04</span></div>
+                        <h3>Booking &amp; Forms</h3>
+                        <p>Appointment booking, quote requests and contact flows that turn visitors into customers — wired up and ready to use.</p>
+                        <ul class="service__tags"><li>Appointments</li><li>Quotes</li><li>Email alerts</li></ul>
+                    </article>
+                    <article class="card service reveal" style="--d:80ms">
+                        <div class="service__top"><span class="ico"><i class="ph ph-paint-brush-broad"></i></span><span class="service__no">05</span></div>
+                        <h3>Brand &amp; Graphics</h3>
+                        <p>Logos, colour systems and social graphics that give your business a consistent, memorable identity across every channel.</p>
+                        <ul class="service__tags"><li>Logos</li><li>Social</li><li>Style guides</li></ul>
+                    </article>
+                    <article class="card service reveal" style="--d:160ms">
+                        <div class="service__top"><span class="ico"><i class="ph ph-wrench"></i></span><span class="service__no">06</span></div>
+                        <h3>Care &amp; Support</h3>
+                        <p>Updates, fixes and improvements after launch, so your site stays secure, current and performing the way it should.</p>
+                        <ul class="service__tags"><li>Updates</li><li>Fixes</li><li>Improvements</li></ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PROCESS ==================== -->
+        <section id="process" class="section">
+            <div class="container">
+                <div class="head head--center reveal">
+                    <span class="eyebrow">How we work</span>
+                    <h2>From idea to launch in <span class="grad">four steps</span></h2>
+                </div>
+                <div class="steps">
+                    <div class="step reveal"><span class="step__no">01</span><h3>Discover</h3><p>We learn your goals, audience and timeline so we build the right thing.</p></div>
+                    <div class="step reveal" style="--d:100ms"><span class="step__no">02</span><h3>Design</h3><p>Wireframes and visual direction you can react to before any code is written.</p></div>
+                    <div class="step reveal" style="--d:200ms"><span class="step__no">03</span><h3>Build</h3><p>Clean, responsive code, tested across real devices and browsers.</p></div>
+                    <div class="step reveal" style="--d:300ms"><span class="step__no">04</span><h3>Launch</h3><p>We deploy, hand everything over, and keep supporting you afterwards.</p></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== PORTFOLIO ==================== -->
+        <section id="portfolio" class="section section--alt">
+            <div class="container">
+                <div class="head head--center reveal">
+                    <span class="eyebrow">Portfolio</span>
+                    <h2>Projects forged with <span class="grad">passion</span> and precision</h2>
+                    <p>Four concept sites for four different industries — each one fully designed, responsive and ready to explore.</p>
+                </div>
+
+                <div class="projects">
+                    <a href="projects/cleaning/index.html" class="card project reveal" style="--p1:#003b5c;--p2:#0077b6">
+                        <div class="project__media">
+                            <div class="browser"><span></span><span></span><span></span><em>/projects/cleaning</em></div>
+                            <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=900&q=75" alt="SparkleClean website preview" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project__body">
+                            <div class="project__meta"><span class="tag">Cleaning service</span><span class="project__no">01</span></div>
+                            <h3>SparkleClean</h3>
+                            <p>A pristine, responsive cleaning-service website with pricing packages, service listings, a free-quote form and a gallery of past commissions.</p>
+                            <ul class="project__tags"><li>Pricing plans</li><li>Quote form</li><li>Gallery slider</li></ul>
+                            <span class="project__cta">View project <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="projects/catering/index.html" class="card project reveal" style="--p1:#1a1405;--p2:#aa8c2c;--d:100ms">
+                        <div class="project__media">
+                            <div class="browser"><span></span><span></span><span></span><em>/projects/catering</em></div>
+                            <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=75" alt="GourmetDelight website preview" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project__body">
+                            <div class="project__meta"><span class="tag">Fine dining</span><span class="project__no">02</span></div>
+                            <h3>GourmetDelight</h3>
+                            <p>A high-end restaurant website featuring an elegant menu, chef profiles, an ambiance gallery and a private-dining inquiry section.</p>
+                            <ul class="project__tags"><li>Menu</li><li>Chef profiles</li><li>Reservations</li></ul>
+                            <span class="project__cta">View project <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="projects/beauty/index.html" class="card project reveal" style="--p1:#881337;--p2:#fb7185">
+                        <div class="project__media">
+                            <div class="browser"><span></span><span></span><span></span><em>/projects/beauty</em></div>
+                            <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=900&q=75" alt="GlowSalon website preview" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project__body">
+                            <div class="project__meta"><span class="tag">Beauty salon</span><span class="project__no">03</span></div>
+                            <h3>GlowSalon</h3>
+                            <p>A luxurious beauty-salon platform showcasing premium treatments, service menus, a gallery and a streamlined booking experience.</p>
+                            <ul class="project__tags"><li>Service tabs</li><li>Gallery</li><li>Booking</li></ul>
+                            <span class="project__cta">View project <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+                        </div>
+                    </a>
+
+                    <a href="projects/car-repair/index.html" class="card project reveal" style="--p1:#111827;--p2:#e63946;--d:100ms">
+                        <div class="project__media">
+                            <div class="browser"><span></span><span></span><span></span><em>/projects/car-repair</em></div>
+                            <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=900&q=75" alt="AutoFix Pro website preview" loading="lazy" onerror="this.style.display='none'">
+                        </div>
+                        <div class="project__body">
+                            <div class="project__meta"><span class="tag">Auto repair</span><span class="project__no">04</span></div>
+                            <h3>AutoFix Pro</h3>
+                            <p>A robust auto-repair shop portal with service offerings, appointment booking, trust badges and customer reviews for a modern garage.</p>
+                            <ul class="project__tags"><li>Appointments</li><li>Services</li><li>Reviews</li></ul>
+                            <span class="project__cta">View project <i class="ph ph-arrow-up-right" aria-hidden="true"></i></span>
+                        </div>
                     </a>
                 </div>
+            </div>
+        </section>
 
-                <div class="about-values reveal" data-delay="400">
-                    <div class="value-card glass-card">
-                        <i class="ph ph-lightbulb-filament"></i>
-                        <h4>Innovation</h4>
-                        <p>Pushing boundaries with creative solutions</p>
-                    </div>
-                    <div class="value-card glass-card">
-                        <i class="ph ph-shield-checkered"></i>
-                        <h4>Quality</h4>
-                        <p>Precision-engineered to perfection</p>
-                    </div>
-                    <div class="value-card glass-card">
-                        <i class="ph ph-handshake"></i>
-                        <h4>Collaboration</h4>
-                        <p>Your vision, our expertise</p>
-                    </div>
-                    <div class="value-card glass-card">
-                        <i class="ph ph-rocket"></i>
-                        <h4>Speed</h4>
-                        <p>Rapid delivery without compromise</p>
-                    </div>
+        <!-- ==================== STACK ==================== -->
+        <section class="section" aria-labelledby="stackTitle">
+            <div class="container">
+                <div class="head head--center reveal">
+                    <span class="eyebrow">Toolbox</span>
+                    <h2 id="stackTitle">Tools we <span class="grad">build</span> with</h2>
+                </div>
+                <ul class="stack reveal">
+                    <li><i class="ph ph-file-html"></i> HTML5</li>
+                    <li><i class="ph ph-file-css"></i> CSS3</li>
+                    <li><i class="ph ph-file-js"></i> JavaScript</li>
+                    <li><i class="ph ph-terminal-window"></i> PHP</li>
+                    <li><i class="ph ph-database"></i> MySQL</li>
+                    <li><i class="ph ph-figma-logo"></i> Figma</li>
+                    <li><i class="ph ph-git-branch"></i> Git</li>
+                    <li><i class="ph ph-cloud"></i> Cloud hosting</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- ==================== FAQ ==================== -->
+        <section id="faq" class="section section--alt">
+            <div class="container">
+                <div class="head head--center reveal">
+                    <span class="eyebrow">FAQ</span>
+                    <h2>Questions, <span class="grad">answered</span></h2>
+                </div>
+                <div class="faq">
+                    <details class="card reveal">
+                        <summary>What kind of projects do you take on? <i class="ph ph-plus" aria-hidden="true"></i></summary>
+                        <div>Websites, web applications, UI/UX design and branding for small and growing businesses — plus custom software when you need something more specific.</div>
+                    </details>
+                    <details class="card reveal">
+                        <summary>How long does a typical website take? <i class="ph ph-plus" aria-hidden="true"></i></summary>
+                        <div>A simple website takes about 2 to 3 days, while a larger one takes around 4 to 5 days. We'll agree on a clear timeline with you before we start.</div>
+                    </details>
+                    <details class="card reveal">
+                        <summary>Will my website work on phones? <i class="ph ph-plus" aria-hidden="true"></i></summary>
+                        <div>Yes. Everything we build is responsive and tested on mobile, tablet and desktop, with light and dark-friendly design where it makes sense.</div>
+                    </details>
+                    <details class="card reveal">
+                        <summary>How do we get started? <i class="ph ph-plus" aria-hidden="true"></i></summary>
+                        <div>Send us a message using the form below or on WhatsApp. Tell us about your project and we'll reply to talk through ideas and next steps.</div>
+                    </details>
                 </div>
             </div>
+        </section>
 
-            <!-- Stats Row -->
-            <div class="stats-row reveal" data-delay="200">
-                <div class="stat-card glass-card">
-                    <span class="counter" data-target="20">0</span><span class="stat-suffix">+</span>
-                    <p>Projects Completed</p>
+        <!-- ==================== CTA + CONTACT ==================== -->
+        <section id="contact" class="section">
+            <div class="container">
+                <div class="cta reveal">
+                    <h2>Have an idea? Let's forge it.</h2>
+                    <p>Tell us what you're building and we'll help you shape it into something people love to use.</p>
+                    <div class="cta__row">
+                        <a href="#contactForm" class="btn"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Send a message</a>
+                        <a href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener" class="btn btn--outline"><i class="ph ph-whatsapp-logo" aria-hidden="true"></i> Chat on WhatsApp</a>
+                    </div>
                 </div>
-                <div class="stat-card glass-card">
-                    <span class="counter" data-target="10">0</span><span class="stat-suffix">+</span>
-                    <p>Happy Clients</p>
+
+                <div class="head reveal" style="margin-top:clamp(3.5rem,7vw,6rem)">
+                    <span class="eyebrow">Get in touch</span>
+                    <h2>Let's build something <span class="grad">extraordinary</span> together</h2>
                 </div>
-                <div class="stat-card glass-card">
-                    <span class="counter" data-target="100">0</span><span class="stat-suffix">%</span>
-                    <p>Client Satisfaction</p>
+
+                <div class="contact">
+                    <aside class="card contact__info reveal">
+                        <h3>Talk to us</h3>
+                        <p>Questions, quotes or just an idea you want to bounce around — we're happy to chat.</p>
+                        <div class="info-list">
+                            <a href="mailto:contact.forgelabs@gmail.com"><span class="ico"><i class="ph ph-envelope-simple"></i></span><span><small>Email</small><strong>contact.forgelabs@gmail.com</strong></span></a>
+                            <a href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener"><span class="ico"><i class="ph ph-whatsapp-logo"></i></span><span><small>WhatsApp</small><strong>Message us directly</strong></span></a>
+                            <div><span class="ico"><i class="ph ph-globe-hemisphere-west"></i></span><span><small>Working</small><strong>Worldwide, fully remote</strong></span></div>
+                        </div>
+                        <div class="socials" id="socials">
+                            <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61593440285981&mibextid=ZbWKwL" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                            <a class="icon-btn" href="https://www.tiktok.com/@forgelabs.co?_r=1&_t=ZS-994CUwW7IBD" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+                            <a class="icon-btn" href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                            <a class="icon-btn" href="mailto:contact.forgelabs@gmail.com" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+                        </div>
+                    </aside>
+
+                    <form class="card form reveal" style="--d:100ms" id="contactForm" novalidate>
+                        <!-- Web3Forms -->
+                        <input type="hidden" name="access_key" value="e4dee185-8e17-4206-87ca-114c8e0068da">
+                        <input type="hidden" name="from_name" value="ForgeLabs Website">
+                        <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none">
+
+                        <div class="form__row">
+                            <div class="field">
+                                <label for="name">Full name</label>
+                                <input type="text" id="name" name="name" placeholder="Jane Doe" autocomplete="name" required>
+                            </div>
+                            <div class="field">
+                                <label for="email">Email address</label>
+                                <input type="email" id="email" name="email" placeholder="jane@example.com" autocomplete="email" required>
+                            </div>
+                        </div>
+                        <div class="form__row">
+                            <div class="field">
+                                <label for="service">I'm interested in</label>
+                                <select id="service" name="service">
+                                    <option>Website / web app</option>
+                                    <option>UI/UX design</option>
+                                    <option>Cloud &amp; hosting</option>
+                                    <option>Branding &amp; graphics</option>
+                                    <option>Something else</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="subject">Subject</label>
+                                <input type="text" id="subject" name="subject" placeholder="Project inquiry" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your project…" required></textarea>
+                        </div>
+                        <div class="form__status" id="formStatus" role="status" aria-live="polite"></div>
+                        <button type="submit" class="btn btn--primary btn--block" id="formBtn"><i class="ph ph-paper-plane-tilt" aria-hidden="true"></i> Send message</button>
+                        <p class="form__note">We'll only use your details to reply to your message.</p>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ==================== SERVICES SECTION ==================== -->
-    <section id="services" class="section services">
-        <div class="container">
-            <h2 class="section-title reveal">Our <span class="gradient-text">Services</span></h2>
-            <p class="section-subtitle reveal" data-delay="100">What we forge in our lab</p>
-
-            <div class="services-grid">
-                <div class="service-card glass-card reveal" data-delay="100">
-                    <div class="service-icon">
-                        <i class="ph ph-code"></i>
-                    </div>
-                    <h3>Web Development</h3>
-                    <p>Custom websites and web applications built with modern frameworks, optimized for performance, scalability, and stunning user experiences.</p>
-                </div>
-
-                <div class="service-card glass-card reveal" data-delay="200">
-                    <div class="service-icon">
-                        <i class="ph ph-figma-logo"></i>
-                    </div>
-                    <h3>UI/UX Design</h3>
-                    <p>Beautiful, intuitive interfaces crafted through research-driven design, prototyping, and iterative user testing.</p>
-                </div>
-
-                <div class="service-card glass-card reveal" data-delay="300">
-                    <div class="service-icon">
-                        <i class="ph ph-cloud"></i>
-                    </div>
-                    <h3>Cloud Solutions</h3>
-                    <p>Scalable cloud infrastructure, deployment pipelines, and serverless architectures that keep your products running smoothly.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== PORTFOLIO SECTION ==================== -->
-    <section id="portfolio" class="section portfolio">
-        <div class="container">
-            <h2 class="section-title reveal">Our <span class="gradient-text">Portfolio</span></h2>
-            <p class="section-subtitle reveal" data-delay="100">Projects forged with passion and precision</p>
-
-            <!-- Projects Grid -->
-            <div class="projects-grid">
-                <a href="projects/cleaning/index.html" class="project-card reveal" data-delay="100" target="_blank">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=800&q=80" alt="SparkleClean Preview">
-                    </div>
-                    <div class="project-info">
-                        <h3>SparkleClean</h3>
-                        <p>A pristine, responsive cleaning service website with pricing packages, service listings, a free quote form, and a beautiful gallery of past commissions.</p>
-                        <span class="project-link-hint">View Project <i class="ph ph-arrow-right"></i></span>
-                    </div>
-                </a>
-
-                <a href="projects/catering/index.html" class="project-card reveal" data-delay="200" target="_blank">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=800&q=80" alt="GourmetDelight Preview">
-                    </div>
-                    <div class="project-info">
-                        <h3>GourmetDelight</h3>
-                        <p>A high-end fine dining restaurant website featuring an elegant menu, chef profiles, ambiance gallery, and a private dining inquiry section.</p>
-                        <span class="project-link-hint">View Project <i class="ph ph-arrow-right"></i></span>
-                    </div>
-                </a>
-
-                <a href="projects/beauty/index.html" class="project-card reveal" data-delay="300" target="_blank">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80" alt="GlowSalon Preview">
-                    </div>
-                    <div class="project-info">
-                        <h3>GlowSalon</h3>
-                        <p>A luxurious beauty salon platform showcasing premium treatments, service menus, stylist profiles, and a streamlined online booking experience.</p>
-                        <span class="project-link-hint">View Project <i class="ph ph-arrow-right"></i></span>
-                    </div>
-                </a>
-
-                <a href="projects/car-repair/index.html" class="project-card reveal" data-delay="400" target="_blank">
-                    <div class="project-image">
-                        <img src="https://images.unsplash.com/photo-1625047509248-ec889cbff17f?auto=format&fit=crop&w=800&q=80" alt="AutoFix Pro Preview">
-                    </div>
-                    <div class="project-info">
-                        <h3>AutoFix Pro</h3>
-                        <p>A robust auto-repair shop portal featuring service offerings, appointment booking, a team section, and customer testimonials for a modern garage.</p>
-                        <span class="project-link-hint">View Project <i class="ph ph-arrow-right"></i></span>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section id="contact" class="section contact">
-        <div class="container">
-            <h2 class="section-title reveal">Get in <span class="gradient-text">Touch</span></h2>
-            <p class="section-subtitle reveal" data-delay="100">Let's build something extraordinary together</p>
-
-            <div class="contact-content">
-                <form class="contact-form glass-card reveal" data-delay="200" id="contactForm">
-                    <!-- Web3Forms Integration -->
-                    <!-- Replace YOUR_ACCESS_KEY_HERE with your key from https://web3forms.com/ -->
-                    <input type="hidden" name="access_key" value="e4dee185-8e17-4206-87ca-114c8e0068da">
-                    <input type="hidden" name="from_name" value="ForgeLabs Website">
-                    <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
-
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" name="name" placeholder="John Doe" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" placeholder="Project Inquiry" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" rows="5" placeholder="Tell us about your project..."
-                            required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-full">
-                        <i class="ph ph-paper-plane-tilt"></i> Send Message
-                    </button>
-                </form>
-
-                </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-brand mb-4">
-                <div class="footer-logo justify-content-center" style="display: flex; align-items: center; justify-content: center; gap: 0.6rem; margin-bottom: 1.5rem;">
-                    <img src="assets/images/logo.png" alt="ForgeLabs" class="footer-logo-img" style="height: 40px; width: 40px; object-fit: contain;">
-                    <span class="nav-logo-text" style="color: var(--metallic); font-family: var(--font-heading); font-weight: 700; letter-spacing: 3px; font-size: 1.3rem;">FORGE<span class="accent" style="color: var(--primary);">LABS</span></span>
+            <div class="footer__grid">
+                <div class="footer__brand">
+                    <a href="#hero" class="brand" aria-label="ForgeLabs — back to top">
+                        <span class="brand__mark"><img src="assets/images/logo.png" alt="" width="42" height="42" loading="lazy"></span>
+                        <span class="brand__name">FORGE<b>LABS</b></span>
+                    </a>
+                    <p>Forging innovative digital solutions — cutting-edge technology with real impact.</p>
+                    <div class="socials">
+                        <a class="icon-btn" href="mailto:contact.forgelabs@gmail.com" aria-label="Email"><i class="ph ph-envelope-simple"></i></a>
+                        <a class="icon-btn" href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ph ph-whatsapp-logo"></i></a>
+                        <a class="icon-btn" href="https://www.facebook.com/profile.php?id=61593440285981&mibextid=ZbWKwL" target="_blank" rel="noopener" aria-label="Facebook"><i class="ph ph-facebook-logo"></i></a>
+                        <a class="icon-btn" href="https://www.tiktok.com/@forgelabs.co?_r=1&_t=ZS-994CUwW7IBD" target="_blank" rel="noopener" aria-label="TikTok"><i class="ph ph-tiktok-logo"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#process">Process</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Demo sites</h4>
+                    <ul>
+                        <li><a href="projects/cleaning/index.html">SparkleClean</a></li>
+                        <li><a href="projects/catering/index.html">GourmetDelight</a></li>
+                        <li><a href="projects/beauty/index.html">GlowSalon</a></li>
+                        <li><a href="projects/car-repair/index.html">AutoFix Pro</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact.forgelabs@gmail.com">contact.forgelabs@gmail.com</a></li>
+                        <li><a href="https://wa.me/message/PE7VH3NI4BIVM1" target="_blank" rel="noopener">WhatsApp</a></li>
+                        <li><a href="#contact">Start a project</a></li>
+                    </ul>
                 </div>
             </div>
-
-            <div class="socials" id="socials">
-                <a href="mailto:contact.forgelabs@gmail.com" aria-label="Email" class="social-link"><i class="ph ph-envelope-simple"></i></a>
-                <a href="https://wa.me/message/PE7VH3NI4BIVM1" aria-label="Whatsapp" target="_blank" class="social-link"><i class="ph ph-whatsapp-logo"></i></a>
-                <a href="https://www.facebook.com/profile.php?id=61593440285981&mibextid=ZbWKwL" aria-label="Facebook" target="_blank" class="social-link"><i class="ph ph-facebook-logo"></i></a>
-                <a href="https://www.tiktok.com/@forgelabs.co?_r=1&_t=ZS-994CUwW7IBD" aria-label="TikTok" target="_blank" class="social-link"><i class="ph ph-tiktok-logo"></i></a>
-            </div>
-            
-            <div class="footer-bottom">
-                <p>&copy; 2026 ForgeLabs. All rights reserved.</p>
-                <div class="tagline">Innovative Digital Solutions &bull; Cutting-Edge Technology &bull; Real Impact</div>
+            <div class="footer__bottom">
+                <p>&copy; <span id="year">2026</span> ForgeLabs. All rights reserved.</p>
+                <p>Innovative Digital Solutions &bull; Cutting-Edge Technology &bull; Real Impact</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scroll to Top Button -->
-    <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-        <i class="ph ph-caret-up"></i>
-    </button>
+    <button class="icon-btn to-top" id="toTop" type="button" aria-label="Back to top"><i class="ph ph-caret-up"></i></button>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    <!-- JavaScript -->
     <script src="assets/js/main.js"></script>
 </body>
 
